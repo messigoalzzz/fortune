@@ -70,7 +70,7 @@ const articles: Article[] = [
 
 export default function WorthReading() {
   return (
-    <section className="py-16 md:py-24 bg-[var(--background-elevated)]">
+    <section className="py-16 md:py-24 bg-[var(--background-card)]">
       <div className="container-custom">
         <div className="text-center mb-12 md:mb-16">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-[var(--foreground)] mb-4">
@@ -112,7 +112,7 @@ export default function WorthReading() {
                 </div>
 
                 {/* 内容 */}
-                <div className="p-6 md:p-8 flex-1 flex flex-col">
+                <div className="p-2 md:p-3 flex-1 flex flex-col">
                   {/* 标题 */}
                   <h3 className="text-xl md:text-2xl font-bold text-[var(--foreground)] mb-4 line-clamp-2 group-hover:text-[var(--primary)] transition-colors duration-200">
                     {article.title}
