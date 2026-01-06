@@ -102,14 +102,13 @@ export default function AcceptCarousel() {
                       fill
                       className="object-contain"
                     />
-                  </div>
-                  <div className="relative">
+                       <>
                     {crypto.recommended && (
-                      <span className="absolute -top-2 -right-16 md:-right-20 px-2 py-1 bg-red-500 text-white text-xs font-bold rounded border-2 border-white uppercase">
-                        RECOMMENDED
-                      </span>
+                      <img src="/recommended.svg" alt="recommended" className="w-[144px] h-auto absolute -bottom-5 right-0" />
                     )}
+                  </>
                   </div>
+               
                 </div>
 
                 {/* 描述 */}

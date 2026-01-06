@@ -32,12 +32,12 @@ export default function Header() {
             {/* Right Side - Buttons */}
             <div className="flex items-center space-x-3">
               {/* Log in Button */}
-              <button className="hidden md:inline-flex items-center px-6 py-2 border border-[var(--primary)] text-[var(--foreground)] rounded-lg hover:text-[var(--primary)] hover:border-[var(--primary-light)] transition-colors duration-200 font-semibold text-sm">
+              <button className="hidden md:inline-flex items-center px-6 py-2 border border-[var(--primary)] text-white rounded-lg hover:text-[var(--primary)] hover:border-[var(--primary-light)] hover:bg-[rgba(245,158,11,0.2)] transition-colors duration-200 font-semibold text-sm">
                 Log in
               </button>
 
               {/* Sign up Button */}
-              <button className="hidden md:inline-flex items-center px-6 py-2 border border-[var(--primary)] bg-[rgba(245,158,11,0.12)] text-[var(--foreground)] rounded-lg hover:bg-[rgba(245,158,11,0.2)] transition-colors duration-200 font-semibold text-sm shadow-[0_0_20px_rgba(245,158,11,0.2)]">
+              <button className="hidden md:inline-flex items-center px-6 py-2 border border-[var(--primary)] text-white rounded-lg hover:bg-[rgba(245,158,11,0.2)] transition-colors duration-200 font-semibold text-sm shadow-[0_0_20px_rgba(245,158,11,0.2)]">
                 Sign up
               </button>
 
@@ -123,10 +123,10 @@ export default function Header() {
               </a>
             ))}
             <div className="px-4 pt-2 space-y-2">
-              <button className="w-full px-6 py-2.5 border border-[var(--primary)] text-[var(--foreground)] rounded-lg hover:text-[var(--primary)] hover:border-[var(--primary-light)] transition-colors duration-200 font-semibold">
+              <button className="w-full px-6 py-2.5 border border-[var(--primary)] text-white rounded-lg hover:text-[var(--primary)] hover:border-[var(--primary-light)] transition-colors duration-200 font-semibold">
                 Log in
               </button>
-              <button className="w-full px-6 py-2.5 border border-[var(--primary)] bg-[rgba(245,158,11,0.12)] text-[var(--foreground)] rounded-lg hover:bg-[rgba(245,158,11,0.2)] transition-colors duration-200 font-semibold">
+              <button className="w-full px-6 py-2.5 border border-[var(--primary)] bg-[rgba(245,158,11,0.12)] text-white rounded-lg hover:bg-[rgba(245,158,11,0.2)] transition-colors duration-200 font-semibold">
                 Sign up
               </button>
             </div>

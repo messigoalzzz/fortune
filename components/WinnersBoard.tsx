@@ -130,7 +130,7 @@ const winnersData: WinnersSection[] = [
 
 export default function WinnersBoard() {
   return (
-    <section className="py-16 md:py-24 bg-[#dadbdc]">
+    <section className="py-8 md:py-12 bg-[#dadbdc]">
       <div className="container-custom">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-8">
           {winnersData.map((section, sectionIndex) => (
