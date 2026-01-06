@@ -241,3 +241,17 @@ body {
     grid-template-columns: repeat(var(--grid-columns, 4), minmax(0, 1fr));
   }
 }
+
+/* Banner 图片放大动画 */
+.banner-image {
+  animation: bannerZoom 20s ease-in-out infinite;
+}
+
+@keyframes bannerZoom {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
