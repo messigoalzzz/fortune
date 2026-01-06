@@ -8,8 +8,8 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "BrandName - 欢迎来到全新体验",
-  description: "探索创新的在线娱乐平台，享受极致体验",
+  title: "Fortune X",
+  description: "",
 };
 
 export default function RootLayout({

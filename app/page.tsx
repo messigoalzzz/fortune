@@ -11,43 +11,43 @@ import WorthReading from "@/components/WorthReading";
 const gameCards: GameCard[] = [
   {
     id: 1,
-    image: "/game-icons/coin-rush.webp",
+    image: "/new/icon1.webp",
     title: "Gods of Egypt",
     badge: "New",
   },
   {
     id: 2,
-    image: "/game-icons/coin-rush.webp",
+    image: "/new/icon2.webp",
     title: "Harvest Of Riches",
   },
   {
     id: 3,
-    image: "/game-icons/coin-rush.webp",
+    image: "/new/icon3.webp",
     title: "Castle Of Horror",
   },
   {
     id: 4,
-    image: "/game-icons/coin-rush.webp",
+    image: "/new/icon4.webp",
     title: "The Line X2",
   },
   {
     id: 5,
-    image: "/game-icons/coin-rush.webp",
+    image: "/new/icon5.webp",
     title: "Tropical",
   },
   {
     id: 6,
-    image: "/game-icons/coin-rush.webp",
+    image: "/new/icon6.webp",
     title: "Watermelon",
   },
   {
     id: 7,
-    image: "/game-icons/coin-rush.webp",
+    image: "/new/icon7.webp",
     title: "Greek Statue",
   },
   {
     id: 8,
-    image: "/game-icons/coin-rush.webp",
+    image: "/new/icon8.webp",
     title: "X Game",
   },
 ];
@@ -59,6 +59,7 @@ export default function Home() {
       <main>
         <BannerCarousel />
         <GameCategoryNav />
+        
         <CardsGrid title="NEW" cards={gameCards} columns={4} />
 
         <WorthReading />
