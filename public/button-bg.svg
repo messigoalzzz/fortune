@@ -1,0 +1,25 @@
+<svg viewBox="0 0 160 56" version="1.1" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+    <linearGradient id="LinearDown" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0" style="stop-color:hsl(45,65%,40%);stop-opacity:0"/>
+        <stop offset="0.3" style="stop-color:hsl(55,55%,45%);stop-opacity:1"/>
+        <stop offset="0.65" style="stop-color:hsl(65,85%,80%);stop-opacity:1"/>
+        <stop offset="1" style="stop-color:hsl(45,65%,40%);stop-opacity:0"/>
+    </linearGradient>
+    <linearGradient id="LinearUp" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0" style="stop-color:hsl(45,65%,40%);stop-opacity:0"/>
+        <stop offset="0.35" style="stop-color:hsl(65,85%,80%);stop-opacity:1"/>
+        <stop offset="0.7" style="stop-color:hsl(55,55%,45%);stop-opacity:1"/>
+        <stop offset="1" style="stop-color:hsl(45,65%,40%);stop-opacity:0"/>
+    </linearGradient>
+    <radialGradient id="Glow" cx="0.5" cy="0.5" r="0.5">
+        <stop offset="0" style="stop-color:#ffffe4;stop-opacity:1"/>
+        <stop offset="0.2" style="stop-color:#f3ee9d;stop-opacity:0.5"/>
+        <stop offset="0.66" style="stop-color:#dcbb6a;stop-opacity:0.15"/>
+        <stop offset="1" style="stop-color:#d2a454;stop-opacity:0"/>
+    </radialGradient>
+
+    <rect x="10" y="48" width="140" height="2" style="fill:url(#LinearDown);"/>
+    <rect x="10" y="6" width="140" height="2" style="fill:url(#LinearUp);"/>
+    <rect x="40" y="42" width="120" height="14" style="fill:url(#Glow);"/>
+    <rect x="0" y="0" width="120" height="14" style="fill:url(#Glow);"/>
+</svg>

@@ -32,12 +32,12 @@ export default function Header() {
             {/* Right Side - Buttons */}
             <div className="flex items-center space-x-3">
               {/* Log in Button */}
-              <button className="hidden md:inline-flex items-center px-6 py-2 border border-[var(--primary)] text-white rounded-lg hover:text-[var(--primary)] hover:border-[var(--primary-light)] hover:bg-[rgba(245,158,11,0.2)] transition-colors duration-200 font-semibold text-sm">
+              <button className="hidden md:inline-flex header-button-login text-sm md:w-auto">
                 Log in
               </button>
 
               {/* Sign up Button */}
-              <button className="hidden md:inline-flex items-center px-6 py-2 border border-[var(--primary)] text-white rounded-lg hover:bg-[rgba(245,158,11,0.2)] transition-colors duration-200 font-semibold text-sm shadow-[0_0_20px_rgba(245,158,11,0.2)]">
+              <button className="hidden md:inline-flex header-button-signup text-sm md:w-auto">
                 Sign up
               </button>
 
@@ -77,7 +77,7 @@ export default function Header() {
                     className={`text-base font-semibold tracking-wide whitespace-nowrap transition-colors duration-200 ${
                       isActive
                         ? "text-sky-400 hover:text-sky-300"
-                        : "text-[var(--foreground-muted)] hover:text-[var(--foreground)]"
+                        : "text-[#818283] hover:text-[var(--foreground)]"
                     }`}
                   >
                     {link.name}
@@ -88,7 +88,7 @@ export default function Header() {
 
             {/* Support Button */}
             <button
-              className="hidden lg:inline-flex items-center gap-2 text-[var(--foreground-muted)] hover:text-[#57caff] transition-colors duration-200"
+              className="hidden lg:inline-flex items-center gap-2 text-[#818283] hover:text-[#57caff] transition-colors duration-200"
               aria-label="Support"
             >
               <span className="text-base font-semibold">Support</span>
@@ -123,10 +123,10 @@ export default function Header() {
               </a>
             ))}
             <div className="px-4 pt-2 space-y-2">
-              <button className="w-full px-6 py-2.5 border border-[var(--primary)] text-white rounded-lg hover:text-[var(--primary)] hover:border-[var(--primary-light)] transition-colors duration-200 font-semibold">
+              <button className="w-full header-button-login">
                 Log in
               </button>
-              <button className="w-full px-6 py-2.5 border border-[var(--primary)] bg-[rgba(245,158,11,0.12)] text-white rounded-lg hover:bg-[rgba(245,158,11,0.2)] transition-colors duration-200 font-semibold">
+              <button className="w-full header-button-signup">
                 Sign up
               </button>
             </div>

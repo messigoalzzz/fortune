@@ -198,6 +198,92 @@ body {
   }
 }
 
+@keyframes gold-button-hover {
+  from {
+    clip-path: circle(0 at 50% 50%);
+    opacity: 0.6;
+  }
+  to {
+    clip-path: circle(140% at 50% 50%);
+    opacity: 0;
+  }
+}
+
+@layer components {
+  .header-button-cashier,
+  .header-button-logged,
+  .header-button-login,
+  .header-button-signup {
+    -webkit-appearance: none;
+    appearance: none;
+    align-items: center;
+    background: none;
+    border: 0.125em solid #ae8629;
+    border-radius: 0.3125em;
+    color: #e9eaed;
+    cursor: pointer;
+    display: inline-flex;
+    font-weight: 500;
+    height: 2.75em;
+    justify-content: center;
+    min-width: 11.25em;
+    position: relative;
+    text-align: center;
+    z-index: 0;
+    -webkit-tap-highlight-color: transparent;
+    padding: 0;
+    white-space: nowrap;
+    width: 100%;
+  }
+
+  .header-button-cashier:before,
+  .header-button-logged:before,
+  .header-button-login:before,
+  .header-button-signup:before {
+    background: url("/button-bg.svg") 50% no-repeat;
+    background-size: 100% 100%;
+    content: "";
+    height: 3.5em;
+    left: -0.125em;
+    position: absolute;
+    top: -0.5em;
+    width: calc(100% + 0.25em);
+  }
+
+  .header-button-cashier:focus,
+  .header-button-cashier:focus-within,
+  .header-button-logged:focus,
+  .header-button-logged:focus-within,
+  .header-button-login:focus,
+  .header-button-login:focus-within,
+  .header-button-signup:focus,
+  .header-button-signup:focus-within {
+    outline: none;
+  }
+
+  .header-button-cashier:focus-within:after,
+  .header-button-cashier:focus:after,
+  .header-button-logged:focus-within:after,
+  .header-button-logged:focus:after,
+  .header-button-login:focus-within:after,
+  .header-button-login:focus:after,
+  .header-button-signup:focus-within:after,
+  .header-button-signup:focus:after {
+    animation: gold-button-hover 1s ease;
+    background: #343637;
+    clip-path: circle(0);
+    content: "";
+    display: block;
+    height: 100%;
+    left: 0;
+    pointer-events: none;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: -1;
+  }
+}
+
 @keyframes footer-social-hover {
   0% {
     clip-path: circle(0 at 50%);
