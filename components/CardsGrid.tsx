@@ -13,20 +13,63 @@ interface CardsGridProps {
   title?: string;
   cards: GameCard[];
   columns?: number; // 每行显示的卡片数量，默认4
+  titleVariant?: "blue" | "pink" | "gold";
 }
 
-export default function CardsGrid({ 
-  title = "NEW", 
-  cards, 
-  columns = 4 
+const TITLE_GRADIENTS = {
+  blue: "linear-gradient(90deg,#8130fe,#5b77f9,#4790f9,#10c9fe)",
+  pink: "linear-gradient(90deg,#ba3be9,#f546bf,#f85094,#ec6e1f)",
+  gold: "linear-gradient(90deg,#ffbd03,#fcf701,#76c908)",
+} as const;
+
+function resolveTitleGradient(
+  title?: string,
+  variant?: keyof typeof TITLE_GRADIENTS
+) {
+  if (variant) {
+    return TITLE_GRADIENTS[variant];
+  }
+
+  const normalizedTitle = title?.trim().toLowerCase();
+  if (normalizedTitle === "popular") {
+    return TITLE_GRADIENTS.blue;
+  }
+  if (normalizedTitle === "new") {
+    return TITLE_GRADIENTS.pink;
+  }
+
+  return TITLE_GRADIENTS.gold;
+}
+
+export default function CardsGrid({
+  title = "NEW",
+  cards,
+  columns = 4,
+  titleVariant,
 }: CardsGridProps) {
+  const titleGradient = resolveTitleGradient(title, titleVariant);
+  const normalizedTitle = title?.trim().toLowerCase();
+  const backgroundColor = normalizedTitle === "new" ? "#161718" : undefined;
   return (
-    <section className="py-16 md:py-24 bg-[var(--background-elevated)]">
+    <section 
+      className="py-6 md:py-7"
+      style={{
+        backgroundColor: backgroundColor || "var(--background-elevated)",
+      }}
+    >
       <div className="container-custom">
         {/* 标题 - 左上角对齐 */}
         {title && (
-          <div className="mb-8 md:mb-12">
-            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white uppercase tracking-wide">
+          <div className="mb-8 md:mb-3">
+            <h2
+              className="text-2xl md:text-3xl lg:text-4xl font-bold uppercase tracking-wide w-fit leading-normal text-transparent bg-clip-text"
+              style={{
+                backgroundImage: titleGradient,
+                WebkitBackgroundClip: "text",
+                backgroundClip: "text",
+                color: "transparent",
+              }}
+            >
               {title}
             </h2>
           </div>
@@ -34,7 +77,7 @@ export default function CardsGrid({
 
         {/* 卡片网格 */}
         <div 
-          className="cards-grid gap-4 md:gap-6"
+          className="cards-grid gap-4 md:gap-4"
           style={{
             '--grid-columns': columns,
           } as React.CSSProperties & { '--grid-columns': number }}
@@ -50,7 +93,7 @@ export default function CardsGrid({
               {/* 卡片容器 */}
               <div className="relative w-full rounded-lg transition-all duration-300 overflow-hidden flex flex-col">
                 {/* 图片区域 - 上半部分，hover 时图片放大 */}
-                <div className="relative w-full aspect-[4/3] overflow-hidden rounded-t-lg">
+                <div className="relative w-full aspect-[1/1] overflow-hidden rounded-t-lg">
                   <div className="relative w-full h-full transition-transform duration-500 ease-out group-hover:scale-110">
                     <Image
                       src={card.image}
@@ -74,7 +117,7 @@ export default function CardsGrid({
                 {/* 文字区域 - 下半部分，显示标题 */}
                 {card.title && (
                   <div className="w-full px-3 py-3 bg-[#101010] rounded-b-lg">
-                    <p className="text-white text-sm md:text-base font-semibold text-center">
+                    <p className="text-white text-sm md:text-base xl:text-2xl font-semibold text-center">
                       {card.title}
                     </p>
                   </div>

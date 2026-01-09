@@ -93,7 +93,7 @@ body {
 
 @media (min-width: 768px) {
   .container-custom {
-    padding: 0 2rem;
+    padding: 0 1rem;
   }
 }
 

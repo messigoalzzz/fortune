@@ -11,9 +11,9 @@ import "swiper/css/pagination";
 import "swiper/css/effect-fade";
 
 const banners = [
-  "/banner1.png",
-  "/banner2.png",
-  "/banner3.png",
+  "/banner1.jpg",
+  "/banner2.jpg",
+  "/banner3.jpg",
 ];
 
 export default function BannerCarousel() {

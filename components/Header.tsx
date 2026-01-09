@@ -24,7 +24,7 @@ export default function Header() {
                 <img
                   src="/logo.png"
                   alt="Logo"
-                  className="h-10 w-auto"
+                  className="h-[72px] w-auto"
                 />
               </a>
             </div>
