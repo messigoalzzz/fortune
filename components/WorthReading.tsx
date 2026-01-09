@@ -70,10 +70,18 @@ const articles: Article[] = [
 
 export default function WorthReading() {
   return (
-    <section className="py-16 md:py-24 bg-[var(--background-card)]">
+    <section className="py-8 md:py-10 bg-[var(--background-card)]">
       <div className="container-custom">
-        <div className="text-center mb-12 md:mb-16">
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-[var(--foreground)] mb-4">
+        <div className="text-left mb-1 md:mb-2">
+          <h2
+            className="text-2xl md:text-2xl lg:text-3xl font-bold mb-4 w-fit leading-normal text-transparent bg-clip-text"
+            style={{
+              backgroundImage: "linear-gradient(90deg, #e69900, red 50%, #ff0080)",
+              WebkitBackgroundClip: "text",
+              backgroundClip: "text",
+              color: "transparent",
+            }}
+          >
             WORTH READING
           </h2>
         </div>
@@ -167,4 +175,3 @@ export default function WorthReading() {
     </section>
   );
 }
-
