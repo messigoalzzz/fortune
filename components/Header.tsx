@@ -74,7 +74,7 @@ export default function Header() {
                   <a
                     key={link.name}
                     href={link.href}
-                    className={`text-sm font-semibold tracking-wide whitespace-nowrap transition-colors duration-200 ${
+                    className={`text-base font-semibold tracking-wide whitespace-nowrap transition-colors duration-200 ${
                       isActive
                         ? "text-sky-400 hover:text-sky-300"
                         : "text-[var(--foreground-muted)] hover:text-[var(--foreground)]"
@@ -88,13 +88,13 @@ export default function Header() {
 
             {/* Support Button */}
             <button
-              className="hidden lg:inline-flex items-center gap-2 text-[var(--foreground-muted)] hover:text-[var(--foreground)] transition-colors duration-200"
+              className="hidden lg:inline-flex items-center gap-2 text-[var(--foreground-muted)] hover:text-[#57caff] transition-colors duration-200"
               aria-label="Support"
             >
-              <span className="text-sm font-semibold">Support</span>
+              <span className="text-base font-semibold">Support</span>
               <span className="flex h-6 w-6 items-center justify-center rounded-full border border-[var(--border)]">
                 <svg
-                  className="w-4 h-4"
+                  className="w-5 h-5"
                   fill="none"
                   strokeLinecap="round"
                   strokeLinejoin="round"
