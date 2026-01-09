@@ -16,7 +16,7 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-50 w-full bg-[var(--background)] border-b border-[var(--border)]">
       <nav className="container-custom">
-        <div className="flex flex-col gap-3 py-4 md:py-5">
+        <div className="flex flex-col gap-2 py-4 md:py-4">
           <div className="flex items-center justify-between">
             {/* Logo */}
             <div className="flex-shrink-0">
