@@ -11,9 +11,9 @@ import "swiper/css/pagination";
 import "swiper/css/effect-fade";
 
 const banners = [
-  "/banner1.jpg",
-  "/banner2.jpg",
-  "/banner3.jpg",
+  "/banner1.mp4",
+  "/banner2.mp4",
+  "/banner3.mp4",
 ];
 
 const bannerTexts = [
@@ -34,7 +34,7 @@ export default function BannerCarousel() {
         navigation
         pagination={{ 
           clickable: true,
-          dynamicBullets: true,
+          dynamicBullets: false,
         }}
         autoplay={{
           delay: 5000,
@@ -47,14 +47,29 @@ export default function BannerCarousel() {
         {banners.map((banner, index) => (
           <SwiperSlide key={index}>
             <div className="relative w-full h-[500px] md:h-[600px] lg:h-[700px] overflow-hidden">
-              <Image
-                src={banner}
-                alt={`Banner ${index + 1}`}
-                fill
-                className="object-cover banner-image"
-                priority={index === 0}
-                sizes="100vw"
-              />
+              {banner.endsWith(".mp4") ? (
+                <video
+                  className="absolute inset-0 h-full w-full object-cover banner-image"
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  preload="metadata"
+                  aria-label={`Banner video ${index + 1}`}
+                >
+                  <source src={banner} type="video/mp4" />
+                  Your browser does not support the video tag.
+                </video>
+              ) : (
+                <Image
+                  src={banner}
+                  alt={`Banner ${index + 1}`}
+                  fill
+                  className="object-cover banner-image"
+                  priority={index === 0}
+                  sizes="100vw"
+                />
+              )}
               <div className="absolute inset-0 flex items-center justify-start pl-12 pr-6 md:pl-20 md:pr-10 lg:pl-28 lg:pr-12">
                 <div className="flex flex-col items-start gap-5 -translate-y-8 md:-translate-y-10 lg:-translate-y-12 pointer-events-none">
                   <Image
@@ -89,28 +104,40 @@ export default function BannerCarousel() {
       </Swiper>
 
       <style jsx global>{`
-        .banner-image {
-          transform: scale(1);
-          will-change: transform;
+        .banner-swiper .swiper-pagination {
+          bottom: 20px;
+          left: 50%;
+          transform: translateX(-50%);
+          width: min(320px, 70%);
+          height: 16px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 10px;
+          padding: 4px 10px;
+          border-radius: 999px;
+          background: transparent;
+          border: 1px solid rgba(255, 255, 255, 0.5);
+          backdrop-filter: blur(6px);
         }
 
-        .banner-swiper .swiper-slide-active .banner-image {
-          animation: banner-zoom 6s ease-out forwards;
+        .banner-swiper .swiper-pagination-bullet {
+          flex: 0 0 33.333%;
+          width: 33.333%;
+          height: 6px;
+          margin: 0 !important;
+          border-radius: 999px;
+          background: transparent !important;
+          border: 1px solid transparent;
+          opacity: 0 !important;
+          box-shadow: none;
         }
 
-        @keyframes banner-zoom {
-          from {
-            transform: scale(1);
-          }
-          to {
-            transform: scale(1.08);
-          }
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-          .banner-swiper .swiper-slide-active .banner-image {
-            animation: none;
-          }
+        .banner-swiper .swiper-pagination-bullet-active {
+          background: transparent !important;
+          border-color: rgba(255, 255, 255, 0.95);
+          opacity: 1 !important;
+          box-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
         }
 
         @keyframes highlight-button-border-anim {
