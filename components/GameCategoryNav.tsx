@@ -12,49 +12,42 @@ interface CategoryItem {
 }
 
 export default function GameCategoryNav() {
-  const [activeCategory, setActiveCategory] = useState("top-picks");
+  const [activeCategory, setActiveCategory] = useState("Slot");
 
   const categories: CategoryItem[] = [
     {
-      id: "top-picks",
-      label: "Top Picks",
-      viewBox: "0 420 110 70",
-      activeViewBox: "120 420 110 70",
-      color: "blue",
-    },
-    {
-      id: "slots",
-      label: "Slots",
-      viewBox: "0 350 110 70",
-      activeViewBox: "120 350 110 70",
+      id: "Slot",
+      label: "Slot",
+      viewBox: "0 0 0 0",
+      activeViewBox: "0 0 0 0",
       color: "white",
     },
     {
-      id: "mega-matrix",
-      label: "Mega Matrix",
-      viewBox: "0 210 110 70",
-      activeViewBox: "120 210 110 70",
+      id: "Lotto",
+      label: "Lotto",
+      viewBox: "0 0 0 0",
+      activeViewBox: "0 0 0 0",
       color: "white",
     },
     {
-      id: "video-poker-and-keno",
-      label: "Poker & Keno",
-      viewBox: "0 280 110 70",
-      activeViewBox: "120 280 110 70",
+      id: "baccarat",
+      label: "Baccarat",
+      viewBox: "0 0 0 0",
+      activeViewBox: "0 0 0 0",
       color: "white",
     },
     {
-      id: "high-limit",
-      label: "High Limit",
-      viewBox: "0 70 110 70",
-      activeViewBox: "120 70 110 70",
+      id: "fishing",
+      label: "Fishing",
+      viewBox: "0 0 0 0",
+      activeViewBox: "0 0 0 0",
       color: "white",
     },
     {
-      id: "jackpot-slot",
-      label: "Jackpot Slot",
-      viewBox: "0 140 110 70",
-      activeViewBox: "120 140 110 70",
+      id: "fastNumbers",
+      label: "Fast Numbers",
+      viewBox: "0 0 0 0",
+      activeViewBox: "0 0 0 0",
       color: "white",
     },
   ];
@@ -71,24 +64,33 @@ export default function GameCategoryNav() {
           <div className="flex flex-wrap items-center justify-center gap-4 md:gap-4 lg:gap-10">
             {categories.map((category) => {
               const isActive = activeCategory === category.id;
-              const iconId = isActive ? `${category.id}-on` : category.id;
+              const imagePath = isActive 
+                ? `/category/${category.id}-active.png` 
+                : `/category/${category.id}.png`;
+              
+              // 根据图片实际尺寸设置：大部分是 140x140，fishing-active 是 140x140
+              const imageWidth = '4.5em';
+              const imageHeight = '4.5em'; // fishing-active 高度更大
               
               return (
                 <button
                   key={category.id}
                   onClick={() => setActiveCategory(category.id)}
-                  className="flex flex-col items-center justify-end transition-all duration-200 hover:scale-110"
+                  className="flex flex-col items-center justify-start transition-all duration-200 hover:scale-110"
                   style={{
-                    width: '6.5em',
-                    height: '6.5em',
-                    backgroundImage: `url(/game.svg#${iconId})`,
-                    backgroundSize: '6.5em',
-                    backgroundPosition: 'top',
-                    backgroundRepeat: 'no-repeat',
+                    // width: imageWidth,
+                    height: 'auto',
                   }}
                 >
+                  <Image
+                    src={imagePath}
+                    alt={category.label}
+                    width={140}
+                    height={140}
+                    className="object-cover size-[70px]"
+                  />
                   <span
-                    className={`text-xs md:text-sm font-medium transition-colors duration-200 mb-1 ${
+                    className={`text-xs md:text-sm text-nowrap font-medium transition-colors duration-200 mt-2 ${
                       isActive
                         ? "text-[#59caff]"
                         : "text-white"
