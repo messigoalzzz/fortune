@@ -60,7 +60,7 @@ export default function GameCategoryNav() {
   ];
 
   return (
-    <section className="relative w-full max-w-[1280px] mx-auto py-3 md:py-4 overflow-hidden">
+    <section className="relative w-full md:-mb-36 mx-auto py-3 md:py-4 overflow-hidden z-10 md:-translate-y-48">
       <div className="absolute inset-0 bg-black/60">
       </div>
 
