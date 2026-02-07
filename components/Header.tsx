@@ -1,9 +1,75 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import LoginModal from "@/components/LoginModal";
+import SignupModal from "@/components/SignupModal";
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [loginOpen, setLoginOpen] = useState(false);
+  const [signupOpen, setSignupOpen] = useState(false);
+  const [user, setUser] = useState<{ uname: string } | null>(null);
+
+  // 页面加载时检查是否已登录
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    const uname = localStorage.getItem("uname");
+    if (token && uname) {
+      setUser({ uname });
+    }
+  }, []);
+
+  const openLogin = () => {
+    setLoginOpen(true);
+    setSignupOpen(false);
+  };
+
+  const openSignup = () => {
+    setSignupOpen(true);
+    setLoginOpen(false);
+  };
+
+  const handleLoginClose = () => {
+    setLoginOpen(false);
+    // 登录成功后刷新用户状态
+    const token = localStorage.getItem("token");
+    const uname = localStorage.getItem("uname");
+    if (token && uname) {
+      setUser({ uname });
+    }
+  };
+
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  // 点击外部关闭下拉菜单
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+        setDropdownOpen(false);
+      }
+    };
+    if (dropdownOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [dropdownOpen]);
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("uid");
+    localStorage.removeItem("uname");
+    setUser(null);
+    setDropdownOpen(false);
+  };
+
+  const userMenuItems = [
+    { label: "Edit profile", action: () => setDropdownOpen(false) },
+    { label: "Change password", action: () => setDropdownOpen(false) },
+    { label: "My bets", action: () => setDropdownOpen(false) },
+    { label: "Messages", action: () => setDropdownOpen(false) },
+    { label: "Log out", action: handleLogout },
+  ];
 
   const navLinks = [
     { name: "Home", href: "#home" },
@@ -31,15 +97,68 @@ export default function Header() {
 
             {/* Right Side - Buttons */}
             <div className="flex items-center space-x-3">
-              {/* Log in Button */}
-              <button className="hidden md:inline-flex header-button-login text-sm md:w-auto">
-                Log in
-              </button>
+              {user ? (
+                <>
+                  {/* Cashier / Balance */}
+                  <button className="hidden md:inline-flex header-button-cashier text-sm md:w-auto">
+                    $0.00
+                  </button>
 
-              {/* Sign up Button */}
-              <button className="hidden md:inline-flex header-button-signup text-sm md:w-auto">
-                Sign up
-              </button>
+                  {/* User Info + Dropdown */}
+                  <div className="relative hidden md:block" ref={dropdownRef}>
+                    <button
+                      className="inline-flex header-button-logged text-sm w-auto gap-2"
+                      onClick={() => setDropdownOpen((prev) => !prev)}
+                    >
+                      <svg
+                        className="w-5 h-5 text-[#e9eaed]"
+                        fill="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z" />
+                      </svg>
+                      {user.uname}
+                    </button>
+
+                    {dropdownOpen && (
+                      <div className="absolute right-0 top-full mt-2 w-52 rounded-md border border-[#d0d0d0] bg-[#e9eaed] shadow-[0_8px_24px_rgba(0,0,0,0.3)] z-50">
+                        {/* 小三角箭头 */}
+                        <div className="absolute -top-2 right-6 h-0 w-0 border-l-8 border-r-8 border-b-8 border-l-transparent border-r-transparent border-b-[#e9eaed]" />
+                        <div className="py-2">
+                          {userMenuItems.map((item) => (
+                            <button
+                              key={item.label}
+                              type="button"
+                              className="block w-full px-5 py-3 text-left text-[16px] font-semibold text-[#5a5a5a] hover:bg-[#d9dadb] transition-colors"
+                              onClick={item.action}
+                            >
+                              {item.label}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </>
+              ) : (
+                <>
+                  {/* Log in Button */}
+                  <button
+                    className="hidden md:inline-flex header-button-login text-sm md:w-auto"
+                    onClick={openLogin}
+                  >
+                    Log in
+                  </button>
+
+                  {/* Sign up Button */}
+                  <button
+                    className="hidden md:inline-flex header-button-signup text-sm md:w-auto"
+                    onClick={openSignup}
+                  >
+                    Sign up
+                  </button>
+                </>
+              )}
 
               {/* Mobile Menu Button */}
               <button
@@ -123,14 +242,61 @@ export default function Header() {
               </a>
             ))}
             <div className="px-4 pt-2 space-y-2">
-              <button className="w-full header-button-login">
-                Log in
-              </button>
-              <button className="w-full header-button-signup">
-                Sign up
-              </button>
+              {user ? (
+                <>
+                  <button className="w-full header-button-cashier">
+                    $0.00
+                  </button>
+                  <button className="w-full header-button-logged gap-2">
+                    <svg
+                      className="w-5 h-5 text-[#e9eaed]"
+                      fill="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z" />
+                    </svg>
+                    {user.uname}
+                  </button>
+                  <div className="mt-2 space-y-1">
+                    {userMenuItems.map((item) => (
+                      <button
+                        key={item.label}
+                        type="button"
+                        className="block w-full rounded-md px-4 py-2 text-left text-[var(--foreground-muted)] hover:text-[var(--primary)] hover:bg-[var(--background-card)] transition-colors duration-200"
+                        onClick={() => {
+                          item.action();
+                          setMobileMenuOpen(false);
+                        }}
+                      >
+                        {item.label}
+                      </button>
+                    ))}
+                  </div>
+                </>
+              ) : (
+                <>
+                  <button
+                    className="w-full header-button-login"
+                    onClick={openLogin}
+                  >
+                    Log in
+                  </button>
+                  <button
+                    className="w-full header-button-signup"
+                    onClick={openSignup}
+                  >
+                    Sign up
+                  </button>
+                </>
+              )}
             </div>
           </div>
+        )}
+        {loginOpen && (
+          <LoginModal onClose={handleLoginClose} onSwitchToSignup={openSignup} />
+        )}
+        {signupOpen && (
+          <SignupModal onClose={() => setSignupOpen(false)} onSwitchToLogin={openLogin} />
         )}
       </nav>
     </header>
