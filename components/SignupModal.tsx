@@ -4,6 +4,7 @@ import { useState } from "react";
 import { toast } from "sonner";
 import { register, sendRegisterCode } from "@/lib/api";
 import Modal, {
+  FormField,
   inputClassName,
   MessageTip,
   extractErrorMessage,
@@ -15,6 +16,16 @@ type SignupModalProps = {
   onSwitchToLogin?: () => void;
 };
 
+type FieldErrors = {
+  uname?: string;
+  email?: string;
+  code?: string;
+  upwd?: string;
+  agreed?: string;
+};
+
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 export default function SignupModal({ onClose, onSwitchToLogin }: SignupModalProps) {
   const [agreed, setAgreed] = useState(false);
   const [uname, setUname] = useState("");
@@ -24,12 +35,44 @@ export default function SignupModal({ onClose, onSwitchToLogin }: SignupModalPro
   const [loading, setLoading] = useState(false);
   const [sending, setSending] = useState(false);
   const [message, setMessage] = useState<MessageState | null>(null);
+  const [errors, setErrors] = useState<FieldErrors>({});
+
+  const clearError = (field: keyof FieldErrors) => {
+    if (errors[field]) setErrors((prev) => ({ ...prev, [field]: undefined }));
+  };
+
+  const validateSendCode = (): boolean => {
+    const next: FieldErrors = {};
+    if (!email.trim()) {
+      next.email = "This is required";
+    } else if (!EMAIL_RE.test(email.trim())) {
+      next.email = "Invalid email address";
+    }
+    setErrors((prev) => ({ ...prev, ...next }));
+    return !next.email;
+  };
+
+  const validate = (): boolean => {
+    const next: FieldErrors = {};
+    if (!uname.trim()) next.uname = "This is required";
+    if (!email.trim()) {
+      next.email = "This is required";
+    } else if (!EMAIL_RE.test(email.trim())) {
+      next.email = "Invalid email address";
+    }
+    if (!code.trim()) next.code = "This is required";
+    if (!upwd.trim()) {
+      next.upwd = "This is required";
+    } else if (upwd.trim().length < 6) {
+      next.upwd = "At least 6 characters";
+    }
+    if (!agreed) next.agreed = "Please agree to the terms";
+    setErrors(next);
+    return Object.keys(next).length === 0;
+  };
 
   const handleSendCode = async () => {
-    if (!email.trim()) {
-      setMessage({ type: "error", text: "Please enter your email first." });
-      return;
-    }
+    if (!validateSendCode()) return;
 
     setSending(true);
     setMessage(null);
@@ -54,15 +97,7 @@ export default function SignupModal({ onClose, onSwitchToLogin }: SignupModalPro
   };
 
   const handleRegister = async () => {
-    if (!uname.trim() || !email.trim() || !code.trim() || !upwd.trim()) {
-      setMessage({ type: "error", text: "Please fill in all fields." });
-      return;
-    }
-
-    if (!agreed) {
-      setMessage({ type: "error", text: "Please agree to the terms." });
-      return;
-    }
+    if (!validate()) return;
 
     setLoading(true);
     setMessage(null);
@@ -101,27 +136,41 @@ export default function SignupModal({ onClose, onSwitchToLogin }: SignupModalPro
       maxWidth="max-w-[440px]"
     >
       <div className="space-y-4">
-        <input
+        <FormField
+          label="Username"
           type="text"
-          placeholder="Username"
-          className={inputClassName}
           value={uname}
-          onChange={(event) => setUname(event.target.value)}
+          onChange={(v) => { setUname(v); clearError("uname"); }}
+          onBlur={() => {
+            if (!uname.trim()) setErrors((prev) => ({ ...prev, uname: "This is required" }));
+          }}
+          error={errors.uname}
         />
-        <input
+        <FormField
+          label="Email address"
           type="email"
-          placeholder="Email address"
-          className={inputClassName}
           value={email}
-          onChange={(event) => setEmail(event.target.value)}
+          onChange={(v) => { setEmail(v); clearError("email"); }}
+          onBlur={() => {
+            if (!email.trim()) {
+              setErrors((prev) => ({ ...prev, email: "This is required" }));
+            } else if (!EMAIL_RE.test(email.trim())) {
+              setErrors((prev) => ({ ...prev, email: "Invalid email address" }));
+            }
+          }}
+          error={errors.email}
         />
-        <div className="flex items-center gap-3">
-          <input
+        <div className="flex items-start gap-3">
+          <FormField
+            label="Verification code"
             type="text"
-            placeholder="Verification code"
-            className={`${inputClassName} flex-1`}
             value={code}
-            onChange={(event) => setCode(event.target.value)}
+            onChange={(v) => { setCode(v); clearError("code"); }}
+            onBlur={() => {
+              if (!code.trim()) setErrors((prev) => ({ ...prev, code: "This is required" }));
+            }}
+            error={errors.code}
+            className="flex-1"
           />
           <button
             type="button"
@@ -132,12 +181,19 @@ export default function SignupModal({ onClose, onSwitchToLogin }: SignupModalPro
             {sending ? "Sending..." : "Send code"}
           </button>
         </div>
-        <input
+        <FormField
+          label="Password"
           type="password"
-          placeholder="Password"
-          className={inputClassName}
           value={upwd}
-          onChange={(event) => setUpwd(event.target.value)}
+          onChange={(v) => { setUpwd(v); clearError("upwd"); }}
+          onBlur={() => {
+            if (!upwd.trim()) {
+              setErrors((prev) => ({ ...prev, upwd: "This is required" }));
+            } else if (upwd.trim().length < 6) {
+              setErrors((prev) => ({ ...prev, upwd: "At least 6 characters" }));
+            }
+          }}
+          error={errors.upwd}
         />
       </div>
 
@@ -147,13 +203,16 @@ export default function SignupModal({ onClose, onSwitchToLogin }: SignupModalPro
             type="checkbox"
             className="sr-only"
             checked={agreed}
-            onChange={(event) => setAgreed(event.target.checked)}
+            onChange={(event) => {
+              setAgreed(event.target.checked);
+              clearError("agreed");
+            }}
             aria-label="Agree to terms and conditions"
           />
           <span
-            className={`h-[28px] w-[28px] rounded-full border-2 border-[#3b3b3b] ${
-              agreed ? "hidden" : "block"
-            }`}
+            className={`h-[28px] w-[28px] rounded-full border-2 ${
+              errors.agreed ? "border-[#c14949]" : "border-[#3b3b3b]"
+            } ${agreed ? "hidden" : "block"}`}
           />
           <svg
             className={`h-[28px] w-[28px] text-[#0a86d8] ${
@@ -169,10 +228,15 @@ export default function SignupModal({ onClose, onSwitchToLogin }: SignupModalPro
             </g>
           </svg>
         </label>
-        <p className="text-[16px] leading-6 text-[#343637]">
-          I confirm that I am of legal gambling age (18+) in my jurisdiction
-          and I agree to the <span className="text-[#0a86d8]">Terms &amp; Conditions</span>.
-        </p>
+        <div>
+          <p className="text-[16px] leading-6 text-[#343637]">
+            I confirm that I am of legal gambling age (18+) in my jurisdiction
+            and I agree to the <span className="text-[#0a86d8]">Terms &amp; Conditions</span>.
+          </p>
+          {errors.agreed && (
+            <p className="mt-1 text-[14px] text-[#c14949]">{errors.agreed}</p>
+          )}
+        </div>
       </div>
 
       <button

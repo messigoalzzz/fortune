@@ -4,7 +4,7 @@ import { useState } from "react";
 import { toast } from "sonner";
 import { login } from "@/lib/api";
 import Modal, {
-  inputClassName,
+  FormField,
   MessageTip,
   extractErrorMessage,
   type MessageState,
@@ -15,17 +15,28 @@ type LoginModalProps = {
   onSwitchToSignup?: () => void;
 };
 
+type FieldErrors = {
+  uname?: string;
+  upwd?: string;
+};
+
 export default function LoginModal({ onClose, onSwitchToSignup }: LoginModalProps) {
   const [uname, setUname] = useState("");
   const [upwd, setUpwd] = useState("");
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState<MessageState | null>(null);
+  const [errors, setErrors] = useState<FieldErrors>({});
+
+  const validate = (): boolean => {
+    const next: FieldErrors = {};
+    if (!uname.trim()) next.uname = "This is required";
+    if (!upwd.trim()) next.upwd = "This is required";
+    setErrors(next);
+    return Object.keys(next).length === 0;
+  };
 
   const handleLogin = async () => {
-    if (!uname.trim() || !upwd.trim()) {
-      setMessage({ type: "error", text: "Please enter username and password." });
-      return;
-    }
+    if (!validate()) return;
 
     setLoading(true);
     setMessage(null);
@@ -57,19 +68,31 @@ export default function LoginModal({ onClose, onSwitchToSignup }: LoginModalProp
   return (
     <Modal title="Log in" titleId="login-modal-title" onClose={onClose}>
       <div className="space-y-4">
-        <input
+        <FormField
+          label="Username or Email"
           type="text"
-          placeholder="Username or Email"
-          className={inputClassName}
           value={uname}
-          onChange={(event) => setUname(event.target.value)}
+          onChange={(v) => {
+            setUname(v);
+            if (errors.uname) setErrors((prev) => ({ ...prev, uname: undefined }));
+          }}
+          onBlur={() => {
+            if (!uname.trim()) setErrors((prev) => ({ ...prev, uname: "This is required" }));
+          }}
+          error={errors.uname}
         />
-        <input
+        <FormField
+          label="Password"
           type="password"
-          placeholder="Password"
-          className={inputClassName}
           value={upwd}
-          onChange={(event) => setUpwd(event.target.value)}
+          onChange={(v) => {
+            setUpwd(v);
+            if (errors.upwd) setErrors((prev) => ({ ...prev, upwd: undefined }));
+          }}
+          onBlur={() => {
+            if (!upwd.trim()) setErrors((prev) => ({ ...prev, upwd: "This is required" }));
+          }}
+          error={errors.upwd}
         />
       </div>
 
@@ -88,13 +111,6 @@ export default function LoginModal({ onClose, onSwitchToSignup }: LoginModalProp
       >
         {loading ? "Logging in..." : "Log in"}
       </button>
-
-      {/* <button
-        type="button"
-        className="mx-auto mt-4 block text-[16px] font-medium text-[#0a86d8]"
-      >
-        Forgot password?
-      </button> */}
 
       <p className="mt-10 text-center text-[16px] text-[#343637]">
         Not a member?{" "}

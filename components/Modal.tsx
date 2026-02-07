@@ -111,6 +111,62 @@ export default function Modal({
 export const inputClassName =
   "h-[54px] w-full rounded-[6px] border border-[#cfcfcf] bg-[#e1e1e1] px-4 text-center text-[18px] text-[#7a7a7a] shadow-inner placeholder:text-[#7a7a7a] focus:outline-none";
 
+/** 带浮动 label 和错误提示的表单字段 */
+export function FormField({
+  label,
+  error,
+  type = "text",
+  value,
+  onChange,
+  onBlur,
+  className,
+}: {
+  label: string;
+  error?: string;
+  type?: string;
+  value: string;
+  onChange: (value: string) => void;
+  onBlur?: () => void;
+  className?: string;
+}) {
+  const hasValue = value.length > 0;
+
+  return (
+    <div className={className}>
+      <div className="group relative">
+        <input
+          type={type}
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+          onBlur={onBlur}
+          placeholder={label}
+          className={`peer h-[54px] w-full rounded-[6px] border bg-[#e1e1e1] px-4 text-center text-[18px] shadow-inner transition-all focus:outline-none ${
+            hasValue ? "pt-4 text-[#3a3a3a]" : "text-[#3a3a3a] placeholder:text-[#7a7a7a]"
+          } ${
+            error
+              ? "border-[#c14949] focus:border-[#c14949]"
+              : "border-[#cfcfcf] focus:border-[#0a86d8]"
+          } focus:pt-4 focus:placeholder:text-transparent`}
+        />
+        <span
+          className={`pointer-events-none absolute left-0 right-0 top-1 text-center text-[12px] transition-opacity duration-200 ${
+            error ? "text-[#c14949]" : "text-[#0a86d8]"
+          } ${
+            hasValue
+              ? "opacity-100"
+              : "opacity-0 peer-focus:opacity-100"
+          }`}
+        >
+          {label}
+        </span>
+      </div>
+      {error && (
+        <p className="mt-1 text-center text-[14px] text-[#c14949]">{error}</p>
+      )}
+    </div>
+  );
+}
+
 /** 消息提示组件 */
 export function MessageTip({ message }: { message: MessageState | null }) {
   if (!message) return null;
