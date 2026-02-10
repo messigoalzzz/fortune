@@ -1,6 +1,7 @@
 "use client";
 
-import Image from "next/image";
+import Image, { type StaticImageData } from "next/image";
+import { useState } from "react";
 
 export interface GameCard {
   id: string | number;
@@ -39,6 +40,33 @@ function resolveTitleGradient(
   }
 
   return TITLE_GRADIENTS.gold;
+}
+
+function GameImage({
+  imgUrl,
+  alt,
+}: {
+  imgUrl: string;
+  alt: string;
+}) {
+  const [src, setSrc] = useState<string | StaticImageData>(imgUrl);
+
+  const handleError = () => {
+    if (src !== "/popular/1.webp") {
+      setSrc("/popular/1.webp");
+    }
+  };
+
+  return (
+    <Image
+      src={src}
+      alt={alt}
+      fill
+      onError={handleError}
+      className="object-cover"
+      sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+    />
+  );
 }
 
 export default function CardsGrid({
@@ -95,12 +123,9 @@ export default function CardsGrid({
                 {/* 图片区域 - 上半部分，hover 时图片放大 */}
                 <div className="relative w-full aspect-[1/1] overflow-hidden rounded-t-lg">
                   <div className="relative w-full h-full transition-transform duration-500 ease-out group-hover:scale-110">
-                    <Image
-                      src={card.image}
+                    <GameImage
+                      imgUrl={card.image}
                       alt={card.title || `Game ${card.id}`}
-                      fill
-                      className="object-cover"
-                      sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
                     />
                   </div>
 

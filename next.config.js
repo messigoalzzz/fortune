@@ -1,5 +1,14 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "game.cac.homes",
+        pathname: "/game/**",
+      },
+    ],
+  },
   async rewrites() {
     // Dev-only proxy to bypass CORS during local development.
     if (process.env.NODE_ENV === "development") {
