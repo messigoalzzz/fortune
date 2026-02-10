@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL ?? "";
-
+// const apiBaseUrl = "https://game.cac.homes";
 const api = axios.create({
   baseURL: apiBaseUrl,
   timeout: 15000,

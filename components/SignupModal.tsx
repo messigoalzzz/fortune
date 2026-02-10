@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 import { register, sendRegisterCode } from "@/lib/api";
 import Modal, {
@@ -34,8 +34,32 @@ export default function SignupModal({ onClose, onSwitchToLogin }: SignupModalPro
   const [upwd, setUpwd] = useState("");
   const [loading, setLoading] = useState(false);
   const [sending, setSending] = useState(false);
+  const [countdown, setCountdown] = useState(0);
+  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const [message, setMessage] = useState<MessageState | null>(null);
   const [errors, setErrors] = useState<FieldErrors>({});
+
+  // 启动倒计时
+  const startCountdown = useCallback(() => {
+    setCountdown(60);
+    timerRef.current = setInterval(() => {
+      setCountdown((prev) => {
+        if (prev <= 1) {
+          if (timerRef.current) clearInterval(timerRef.current);
+          timerRef.current = null;
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+  }, []);
+
+  // 组件卸载时清除定时器
+  useEffect(() => {
+    return () => {
+      if (timerRef.current) clearInterval(timerRef.current);
+    };
+  }, []);
 
   const clearError = (field: keyof FieldErrors) => {
     if (errors[field]) setErrors((prev) => ({ ...prev, [field]: undefined }));
@@ -80,6 +104,7 @@ export default function SignupModal({ onClose, onSwitchToLogin }: SignupModalPro
       const response = await sendRegisterCode(email.trim());
       if (response.data.code === 1) {
         setMessage({ type: "success", text: "Verification code sent." });
+        startCountdown();
       } else {
         setMessage({
           type: "error",
@@ -176,9 +201,9 @@ export default function SignupModal({ onClose, onSwitchToLogin }: SignupModalPro
             type="button"
             className="h-[54px] shrink-0 rounded-[6px] bg-[#0a86d8] px-4 text-[16px] font-semibold text-white disabled:cursor-not-allowed disabled:opacity-60"
             onClick={handleSendCode}
-            disabled={sending || !email.trim()}
+            disabled={sending || countdown > 0 || !email.trim()}
           >
-            {sending ? "Sending..." : "Send code"}
+            {sending ? "Sending..." : countdown > 0 ? `${countdown}s` : "Send code"}
           </button>
         </div>
         <FormField

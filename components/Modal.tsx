@@ -109,7 +109,7 @@ export default function Modal({
 
 /** 复用的输入框样式 */
 export const inputClassName =
-  "h-[54px] w-full rounded-[6px] border border-[#cfcfcf] bg-[#e1e1e1] px-4 text-center text-[18px] text-[#7a7a7a] shadow-inner placeholder:text-[#7a7a7a] focus:outline-none";
+  "h-[54px] w-full rounded-[6px] border-none px-4 text-center text-[18px] text-[#7a7a7a] placeholder:text-[#7a7a7a] focus:outline-none focus:ring-0";
 
 /** 带浮动 label 和错误提示的表单字段 */
 export function FormField({
@@ -140,12 +140,9 @@ export function FormField({
           onChange={(e) => onChange(e.target.value)}
           onBlur={onBlur}
           placeholder={label}
-          className={`peer h-[54px] w-full rounded-[6px] border bg-[#e1e1e1] px-4 text-center text-[18px] shadow-inner transition-all focus:outline-none ${
+          style={{ background: "linear-gradient(90deg, #e9eaed, #dadbdc 50%, #e9eaed)" }}
+          className={`peer h-[54px] w-full rounded-[6px] border-none px-4 text-center text-[18px] outline-none ring-0 transition-[padding,color] duration-200 ${
             hasValue ? "pt-4 text-[#3a3a3a]" : "text-[#3a3a3a] placeholder:text-[#7a7a7a]"
-          } ${
-            error
-              ? "border-[#c14949] focus:border-[#c14949]"
-              : "border-[#cfcfcf] focus:border-[#0a86d8]"
           } focus:pt-4 focus:placeholder:text-transparent`}
         />
         <span
