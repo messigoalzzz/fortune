@@ -74,6 +74,7 @@ export default function Header() {
     localStorage.removeItem("jwt");
     setUser(null);
     setDropdownOpen(false);
+    router.push("/");
   };
 
   const userMenuItems = [

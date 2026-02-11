@@ -1044,26 +1044,6 @@ export default function PersonalCenter() {
 
                   <div className="mt-6 space-y-4">
                     <div>
-                      <p className="text-sm text-[#8d9096]">Network</p>
-                      <div className="mt-2 flex flex-wrap gap-2">
-                        {["TRC20", "ERC20", "BEP20"].map((network) => (
-                          <button
-                            key={network}
-                            type="button"
-                            onClick={() => setDepositNetwork(network)}
-                            className={`rounded-full border px-4 py-2 text-sm font-semibold transition ${
-                              network === depositNetwork
-                                ? "border-[#f5c245] bg-[#1d1a10] text-[#f5c245]"
-                                : "border-[#2b2f3b] text-[#8d9096] hover:text-[#f5f6f7]"
-                            }`}
-                          >
-                            {network}
-                          </button>
-                        ))}
-                      </div>
-                    </div>
-
-                    <div>
                       <p className="text-sm text-[#8d9096]">Amount</p>
                       <input
                         type="text"
@@ -1108,22 +1088,6 @@ export default function PersonalCenter() {
                         </div>
                       </div>
                     )}
-
-                    <div>
-                      <p className="text-sm text-[#8d9096]">Deposit Address</p>
-                      <div className="mt-2 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 rounded-xl border border-[#232736] bg-[#0c0f16] px-4 py-3">
-                        <span className="text-xs sm:text-sm font-mono text-[#d4d7dd] break-all">
-                          {depositAddress}
-                        </span>
-                        <button
-                          type="button"
-                          className="rounded-full border border-[#2f3443] px-4 py-2 text-xs font-semibold text-[#cbd5f5] hover:border-[#f5c245] hover:text-[#f5c245]"
-                          onClick={() => handleCopy(depositAddress, "deposit")}
-                        >
-                          {copied === "deposit" ? "Copied" : "Copy"}
-                        </button>
-                      </div>
-                    </div>
 
                     <div className="rounded-xl border border-[#232736] bg-[#0c0f16] px-4 py-4 text-sm text-[#9aa0a6]">
                       <p className="font-semibold text-[#f5f6f7]">Important</p>
