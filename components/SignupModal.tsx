@@ -14,6 +14,7 @@ import Modal, {
 type SignupModalProps = {
   onClose: () => void;
   onSwitchToLogin?: () => void;
+  onRegisterSuccess?: () => void;
 };
 
 type FieldErrors = {
@@ -26,7 +27,11 @@ type FieldErrors = {
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-export default function SignupModal({ onClose, onSwitchToLogin }: SignupModalProps) {
+export default function SignupModal({
+  onClose,
+  onSwitchToLogin,
+  onRegisterSuccess,
+}: SignupModalProps) {
   const [agreed, setAgreed] = useState(false);
   const [uname, setUname] = useState("");
   const [email, setEmail] = useState("");
@@ -134,8 +139,25 @@ export default function SignupModal({ onClose, onSwitchToLogin }: SignupModalPro
         code: code.trim(),
       });
       if (response.data.code === 1) {
-        toast.success("Account created. Please log in.");
-        onClose();
+        const data = response.data.data;
+        if (data?.token) {
+          localStorage.setItem("token", data.token);
+          const displayName = data.uname || data.unick || uname.trim();
+          if (displayName) {
+            localStorage.setItem("uname", displayName);
+          }
+          if (data.jwt) {
+            localStorage.setItem("jwt", data.jwt);
+          }
+          toast.success("Account created. You are now logged in.");
+        } else {
+          toast.success("Account created. Please log in.");
+        }
+        if (onRegisterSuccess) {
+          onRegisterSuccess();
+        } else {
+          onClose();
+        }
         return;
       } else {
         setMessage({

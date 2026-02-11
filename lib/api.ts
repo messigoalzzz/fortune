@@ -21,9 +21,21 @@ export type LoginResponse = {
   status: number;
 };
 
+export type RegisterResponse = {
+  token: string;
+  expiretime: number;
+  jwt?: string;
+  uname?: string;
+  unick?: string;
+  status?: number;
+  uchip?: number;
+};
+
 export type UserInfoResponse = {
   uid: number;
   uname: string;
+  unick?: string;
+  uchip?: number;
 };
 
 export type GameListItem = {
@@ -31,6 +43,46 @@ export type GameListItem = {
   name?: string;
   namee?: string;
   coverUrl: string;
+};
+
+export type CreateOrderResponse = {
+  orderId?: string;
+  orderNo?: string;
+  order_id?: string;
+  payUrl?: string;
+  url?: string;
+  redirectUrl?: string;
+  checkout_url?: string;
+  address?: string;
+  amount?: number | string;
+  payment_info?: Array<{
+    payment_address?: string;
+    token_symbol?: string;
+    blockchain?: string;
+    token_name?: string;
+    receive_amount?: string;
+    receive_currency?: string;
+    exchange_rate?: string;
+    asset_logo?: string;
+    logo_url?: string;
+  }>;
+  [key: string]: unknown;
+};
+
+export type ApplyWithdrawPayload = {
+  amount: number | string;
+  address: string;
+};
+
+export type OrderListItem = Record<string, unknown>;
+
+export type OrderListResponse = {
+  list?: OrderListItem[];
+  rows?: OrderListItem[];
+  data?: OrderListItem[];
+  total?: number;
+  totalCount?: number;
+  total_count?: number;
 };
 
 export const login = (payload: { uname: string; upwd: string }) =>
@@ -41,7 +93,7 @@ export const register = (payload: {
   email: string;
   upwd: string;
   code: string;
-}) => api.post<ApiResponse>("/api/user/register", payload);
+}) => api.post<ApiResponse<RegisterResponse>>("/api/user/register", payload);
 
 export const sendRegisterCode = (email: string) =>
   api.post<ApiResponse>("/api/ems/send", { email, event: "register" });
@@ -53,5 +105,33 @@ export const fetchUserInfo = (token: string) =>
 
 export const fetchGameList = () =>
   api.get<ApiResponse<GameListItem[]>>("/api/game/list");
+
+export const createOrder = (token: string, payload: { amount: number | string }) =>
+  api.post<ApiResponse<CreateOrderResponse>>("/api/create/order", payload, {
+    headers: { token },
+  });
+
+export const applyWithdraw = (token: string, payload: ApplyWithdrawPayload) =>
+  api.post<ApiResponse>("/api/apply/withdraw", payload, {
+    headers: { token },
+  });
+
+export const fetchOrderList = (
+  token: string,
+  params: { page: number; limit: number },
+) =>
+  api.get<ApiResponse<OrderListItem[] | OrderListResponse>>("/api/order/list", {
+    headers: { token },
+    params,
+  });
+
+export const fetchOrderDetail = (
+  token: string,
+  params: { orderId: string },
+) =>
+  api.get<ApiResponse<OrderListItem>>("/api/order/detail", {
+    headers: { token },
+    params,
+  });
 
 export default api;

@@ -1,10 +1,13 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 import LoginModal from "@/components/LoginModal";
 import SignupModal from "@/components/SignupModal";
 
 export default function Header() {
+  const router = useRouter();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [loginOpen, setLoginOpen] = useState(false);
   const [signupOpen, setSignupOpen] = useState(false);
@@ -39,6 +42,15 @@ export default function Header() {
     }
   };
 
+  const handleSignupClose = () => {
+    setSignupOpen(false);
+    const token = localStorage.getItem("token");
+    const uname = localStorage.getItem("uname");
+    if (token && uname) {
+      setUser({ uname });
+    }
+  };
+
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -59,25 +71,33 @@ export default function Header() {
     localStorage.removeItem("token");
     localStorage.removeItem("uid");
     localStorage.removeItem("uname");
+    localStorage.removeItem("jwt");
     setUser(null);
     setDropdownOpen(false);
   };
 
   const userMenuItems = [
-    { label: "Edit profile", action: () => setDropdownOpen(false) },
-    { label: "Change password", action: () => setDropdownOpen(false) },
-    { label: "My bets", action: () => setDropdownOpen(false) },
-    { label: "Messages", action: () => setDropdownOpen(false) },
+    {
+      label: "Profile",
+      action: () => {
+        setDropdownOpen(false);
+        router.push("/account");
+      },
+    },
     { label: "Log out", action: handleLogout },
   ];
 
   const navLinks = [
-    { name: "Home", href: "#home" },
-    { name: "Games", href: "#games" },
-    { name: "Promotions", href: "#promotions" },
-    { name: "Provably Fair Explained", href: "#provably-fair" },
-    { name: "Worth Reading", href: "#articles" },
+    { name: "Home", href: "/", comingSoon: false },
+    { name: "Games", href: "#", comingSoon: true },
+    { name: "Promotions", href: "#", comingSoon: true },
+    { name: "Provably Fair Explained", href: "#", comingSoon: true },
+    { name: "Worth Reading", href: "#", comingSoon: true },
   ];
+
+  const handleComingSoon = () => {
+    toast("Coming soon");
+  };
 
   return (
     <header className="sticky top-0 z-50 w-full bg-[var(--background)] border-b border-[var(--border)]">
@@ -86,7 +106,7 @@ export default function Header() {
           <div className="flex items-center justify-between">
             {/* Logo */}
             <div className="flex-shrink-0">
-              <a href="#" className="flex items-center">
+              <a href="/" className="flex items-center">
                 <img
                   src="/logo.png"
                   alt="Logo"
@@ -189,16 +209,25 @@ export default function Header() {
             <div className="hidden lg:flex items-center space-x-8">
               {navLinks.map((link) => {
                 const isActive = link.name === "Home";
+                const className = `text-base font-semibold tracking-wide whitespace-nowrap transition-colors duration-200 ${
+                  isActive
+                    ? "text-sky-400 hover:text-sky-300"
+                    : "text-[#818283] hover:text-[var(--foreground)]"
+                }`;
+                if (link.comingSoon) {
+                  return (
+                    <button
+                      key={link.name}
+                      type="button"
+                      className={className}
+                      onClick={handleComingSoon}
+                    >
+                      {link.name}
+                    </button>
+                  );
+                }
                 return (
-                  <a
-                    key={link.name}
-                    href={link.href}
-                    className={`text-base font-semibold tracking-wide whitespace-nowrap transition-colors duration-200 ${
-                      isActive
-                        ? "text-sky-400 hover:text-sky-300"
-                        : "text-[#818283] hover:text-[var(--foreground)]"
-                    }`}
-                  >
+                  <a key={link.name} href={link.href} className={className}>
                     {link.name}
                   </a>
                 );
@@ -231,16 +260,35 @@ export default function Header() {
         {/* Mobile Menu */}
         {mobileMenuOpen && (
           <div className="lg:hidden py-4 space-y-3 border-t border-[var(--border)]">
-            {navLinks.map((link) => (
-              <a
-                key={link.name}
-                href={link.href}
-                className="block px-4 py-2 text-[var(--foreground-muted)] hover:text-[var(--primary)] hover:bg-[var(--background-card)] rounded-md transition-colors duration-200"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                {link.name}
-              </a>
-            ))}
+            {navLinks.map((link) => {
+              const className =
+                "block px-4 py-2 text-[var(--foreground-muted)] hover:text-[var(--primary)] hover:bg-[var(--background-card)] rounded-md transition-colors duration-200";
+              if (link.comingSoon) {
+                return (
+                  <button
+                    key={link.name}
+                    type="button"
+                    className={className}
+                    onClick={() => {
+                      handleComingSoon();
+                      setMobileMenuOpen(false);
+                    }}
+                  >
+                    {link.name}
+                  </button>
+                );
+              }
+              return (
+                <a
+                  key={link.name}
+                  href={link.href}
+                  className={className}
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  {link.name}
+                </a>
+              );
+            })}
             <div className="px-4 pt-2 space-y-2">
               {user ? (
                 <>
@@ -296,7 +344,11 @@ export default function Header() {
           <LoginModal onClose={handleLoginClose} onSwitchToSignup={openSignup} />
         )}
         {signupOpen && (
-          <SignupModal onClose={() => setSignupOpen(false)} onSwitchToLogin={openLogin} />
+          <SignupModal
+            onClose={() => setSignupOpen(false)}
+            onSwitchToLogin={openLogin}
+            onRegisterSuccess={handleSignupClose}
+          />
         )}
       </nav>
     </header>
