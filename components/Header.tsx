@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import LoginModal from "@/components/LoginModal";
 import SignupModal from "@/components/SignupModal";
+import { fetchUserInfo } from "@/lib/api";
 
 export default function Header() {
   const router = useRouter();
@@ -12,14 +13,58 @@ export default function Header() {
   const [loginOpen, setLoginOpen] = useState(false);
   const [signupOpen, setSignupOpen] = useState(false);
   const [user, setUser] = useState<{ uname: string } | null>(null);
+  const [withdrawableUsdt, setWithdrawableUsdt] = useState("0.00");
+
+  const parseNumber = (value: unknown): number | null => {
+    if (typeof value === "number" && Number.isFinite(value)) return value;
+    if (typeof value === "string") {
+      const trimmed = value.trim();
+      if (!trimmed) return null;
+      const parsed = Number(trimmed);
+      if (Number.isFinite(parsed)) return parsed;
+    }
+    return null;
+  };
+
+  const formatUsdt = (value: number) =>
+    value.toLocaleString(undefined, {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    });
+
+  const refreshUserState = () => {
+    const token = localStorage.getItem("token");
+    const uname = localStorage.getItem("uname");
+    if (!token) {
+      setUser(null);
+      setWithdrawableUsdt("0.00");
+      return;
+    }
+    if (uname) {
+      setUser({ uname });
+    }
+
+    fetchUserInfo(token)
+      .then((response) => {
+        const payload = response.data;
+        if (payload.code !== 1 || !payload.data) return;
+        const displayName = payload.data.unick || payload.data.uname || uname;
+        if (displayName) {
+          setUser({ uname: displayName });
+          localStorage.setItem("uname", displayName);
+        }
+        const gameCoinValue = payload.data.uchip ?? payload.data.balance;
+        const gameCoins = parseNumber(gameCoinValue);
+        if (gameCoins !== null) {
+          setWithdrawableUsdt(formatUsdt(gameCoins / 100));
+        }
+      })
+      .catch(() => undefined);
+  };
 
   // 页面加载时检查是否已登录
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    const uname = localStorage.getItem("uname");
-    if (token && uname) {
-      setUser({ uname });
-    }
+    refreshUserState();
   }, []);
 
   const openLogin = () => {
@@ -34,21 +79,12 @@ export default function Header() {
 
   const handleLoginClose = () => {
     setLoginOpen(false);
-    // 登录成功后刷新用户状态
-    const token = localStorage.getItem("token");
-    const uname = localStorage.getItem("uname");
-    if (token && uname) {
-      setUser({ uname });
-    }
+    refreshUserState();
   };
 
   const handleSignupClose = () => {
     setSignupOpen(false);
-    const token = localStorage.getItem("token");
-    const uname = localStorage.getItem("uname");
-    if (token && uname) {
-      setUser({ uname });
-    }
+    refreshUserState();
   };
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -73,6 +109,7 @@ export default function Header() {
     localStorage.removeItem("uname");
     localStorage.removeItem("jwt");
     setUser(null);
+    setWithdrawableUsdt("0.00");
     setDropdownOpen(false);
     router.push("/");
   };
@@ -122,7 +159,7 @@ export default function Header() {
                 <>
                   {/* Cashier / Balance */}
                   <button className="hidden md:inline-flex header-button-cashier text-sm md:w-auto">
-                    $0.00
+                    ${withdrawableUsdt}
                   </button>
 
                   {/* User Info + Dropdown */}
@@ -294,7 +331,7 @@ export default function Header() {
               {user ? (
                 <>
                   <button className="w-full header-button-cashier">
-                    $0.00
+                    ${withdrawableUsdt}
                   </button>
                   <button className="w-full header-button-logged gap-2">
                     <svg

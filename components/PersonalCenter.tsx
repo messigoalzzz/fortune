@@ -107,13 +107,18 @@ const REFERRAL_ITEMS: ReferralItem[] = [
   },
 ];
 
-const TAB_ITEMS: { id: TabKey; label: string }[] = [
+const REFERRAL_FEATURE_ENABLED = false;
+
+const TAB_ITEMS_ALL: { id: TabKey; label: string }[] = [
   { id: "overview", label: "Overview" },
   { id: "deposit", label: "Deposit" },
   { id: "withdraw", label: "Withdraw" },
   { id: "history", label: "History" },
   { id: "referral", label: "Referral" },
 ];
+const TAB_ITEMS = REFERRAL_FEATURE_ENABLED
+  ? TAB_ITEMS_ALL
+  : TAB_ITEMS_ALL.filter((item) => item.id !== "referral");
 
 const referralCode = "FX-8Q2M1";
 const referralLink = "https://fortunex.example/invite/FX-8Q2M1";
@@ -552,7 +557,6 @@ export default function PersonalCenter() {
   const [depositMessage, setDepositMessage] = useState<MessageState | null>(null);
   const [depositLoading, setDepositLoading] = useState(false);
   const [withdrawAmount, setWithdrawAmount] = useState("");
-  const [withdrawNetwork, setWithdrawNetwork] = useState("TRC20");
   const [withdrawAddress, setWithdrawAddress] = useState("");
   const [withdrawMessage, setWithdrawMessage] = useState<MessageState | null>(null);
   const [withdrawLoading, setWithdrawLoading] = useState(false);
@@ -875,8 +879,7 @@ export default function PersonalCenter() {
             Personal Center
           </h1>
           <p className="mt-2 text-sm md:text-base text-[#9aa0a6]">
-            Manage your wallet, withdrawals, history, and referral rewards in one
-            place.
+            Manage your wallet, withdrawals, and history in one place.
           </p>
         </div>
 
@@ -1033,20 +1036,31 @@ export default function PersonalCenter() {
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  {[
-                    {
-                      label: "Last login",
-                      value: "2026-02-08 21:16",
-                    },
-                    {
-                      label: "Total deposits",
-                      value: "18,320.50 USDT",
-                    },
-                    {
-                      label: "Referral earnings",
-                      value: "126.80 USDT",
-                    },
-                  ].map((item) => (
+                  {(REFERRAL_FEATURE_ENABLED
+                    ? [
+                        {
+                          label: "Last login",
+                          value: "2026-02-08 21:16",
+                        },
+                        {
+                          label: "Total deposits",
+                          value: "18,320.50 USDT",
+                        },
+                        {
+                          label: "Referral earnings",
+                          value: "126.80 USDT",
+                        },
+                      ]
+                    : [
+                        {
+                          label: "Last login",
+                          value: "2026-02-08 21:16",
+                        },
+                        {
+                          label: "Total deposits",
+                          value: "18,320.50 USDT",
+                        },
+                      ]).map((item) => (
                     <div
                       key={item.label}
                       className="rounded-xl border border-[#1f2430] bg-[#10131b] px-4 py-4"
@@ -1194,30 +1208,16 @@ export default function PersonalCenter() {
                       </p>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <div>
-                        <p className="text-sm text-[#8d9096]">Amount</p>
-                        <input
-                          type="text"
-                          inputMode="decimal"
-                          placeholder="100"
-                          value={withdrawAmount}
-                          onChange={(event) => setWithdrawAmount(event.target.value)}
-                          className="mt-2 w-full rounded-xl border border-[#232736] bg-[#0c0f16] px-4 py-3 text-sm text-[#f5f6f7] placeholder:text-[#5e636c] outline-none focus:border-[#f5c245]"
-                        />
-                      </div>
-                      <div>
-                        <p className="text-sm text-[#8d9096]">Network</p>
-                        <select
-                          value={withdrawNetwork}
-                          onChange={(event) => setWithdrawNetwork(event.target.value)}
-                          className="mt-2 w-full rounded-xl border border-[#232736] bg-[#0c0f16] px-4 py-3 text-sm text-[#f5f6f7] outline-none focus:border-[#f5c245]"
-                        >
-                          <option>TRC20</option>
-                          <option>ERC20</option>
-                          <option>BEP20</option>
-                        </select>
-                      </div>
+                    <div>
+                      <p className="text-sm text-[#8d9096]">Amount</p>
+                      <input
+                        type="text"
+                        inputMode="decimal"
+                        placeholder="100"
+                        value={withdrawAmount}
+                        onChange={(event) => setWithdrawAmount(event.target.value)}
+                        className="mt-2 w-full rounded-xl border border-[#232736] bg-[#0c0f16] px-4 py-3 text-sm text-[#f5f6f7] placeholder:text-[#5e636c] outline-none focus:border-[#f5c245]"
+                      />
                     </div>
 
                     <div>
@@ -1413,7 +1413,7 @@ export default function PersonalCenter() {
               </div>
             )}
 
-            {activeTab === "referral" && (
+            {REFERRAL_FEATURE_ENABLED && activeTab === "referral" && (
               <div className="grid grid-cols-1 lg:grid-cols-[1.4fr_1fr] gap-6 animate-fade-in">
                 <div className="rounded-2xl border border-[#232736] bg-[#121622] p-6">
                   <h3 className="text-xl font-semibold text-[#f5f6f7]">
