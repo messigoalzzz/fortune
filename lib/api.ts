@@ -28,14 +28,16 @@ export type RegisterResponse = {
   uname?: string;
   unick?: string;
   status?: number;
-  uchip?: number;
+  uchip?: number | string;
+  balance?: number | string;
 };
 
 export type UserInfoResponse = {
   uid: number;
   uname: string;
   unick?: string;
-  uchip?: number;
+  uchip?: number | string;
+  balance?: number | string;
 };
 
 export type GameListItem = {

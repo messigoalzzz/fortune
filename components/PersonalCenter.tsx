@@ -115,11 +115,6 @@ const TAB_ITEMS: { id: TabKey; label: string }[] = [
   { id: "referral", label: "Referral" },
 ];
 
-const wallet = {
-  gameCoins: "125,680",
-  usdt: "520.50",
-};
-
 const referralCode = "FX-8Q2M1";
 const referralLink = "https://fortunex.example/invite/FX-8Q2M1";
 const DEFAULT_DEPOSIT_ADDRESS = "TMMzvF6P8n12Yw3sN6L9H4QxE6dP9a2c3";
@@ -191,6 +186,30 @@ const resolveString = (value: unknown) => {
   }
   return "";
 };
+
+const toNumber = (value: unknown): number | null => {
+  if (typeof value === "number" && Number.isFinite(value)) {
+    return value;
+  }
+  if (typeof value === "string") {
+    const trimmed = value.trim();
+    if (!trimmed) return null;
+    const parsed = Number(trimmed);
+    if (Number.isFinite(parsed)) {
+      return parsed;
+    }
+  }
+  return null;
+};
+
+const formatGameCoins = (value: number) =>
+  value.toLocaleString(undefined, { maximumFractionDigits: 2 });
+
+const formatUsdt = (value: number) =>
+  value.toLocaleString(undefined, {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });
 
 const parseJsonArray = (value: unknown): Record<string, unknown>[] | null => {
   if (typeof value !== "string") return null;
@@ -522,6 +541,7 @@ export default function PersonalCenter() {
   const [token, setToken] = useState<string | null>(null);
   const [userName, setUserName] = useState("Guest");
   const [userId, setUserId] = useState("-");
+  const [gameCoinsBalance, setGameCoinsBalance] = useState(0);
   const [copied, setCopied] = useState<null | "deposit" | "payment" | "referral">(null);
   const [depositAmount, setDepositAmount] = useState("");
   const [depositNetwork, setDepositNetwork] = useState("TRC20");
@@ -565,6 +585,11 @@ export default function PersonalCenter() {
         const displayName = payload.data.unick || payload.data.uname || uname || "Guest";
         setUserName(displayName);
         setUserId(String(payload.data.uid ?? uid ?? "-"));
+        const gameCoinValue = payload.data.uchip ?? payload.data.balance;
+        const parsedGameCoinBalance = toNumber(gameCoinValue);
+        if (parsedGameCoinBalance !== null) {
+          setGameCoinsBalance(parsedGameCoinBalance);
+        }
         if (displayName) {
           localStorage.setItem("uname", displayName);
         }
@@ -583,6 +608,12 @@ export default function PersonalCenter() {
     const initial = userName.trim().charAt(0).toUpperCase();
     return initial || "G";
   }, [userName]);
+  const usdtBalance = useMemo(() => gameCoinsBalance / 100, [gameCoinsBalance]);
+  const formattedGameCoinsBalance = useMemo(
+    () => formatGameCoins(gameCoinsBalance),
+    [gameCoinsBalance],
+  );
+  const formattedUsdtBalance = useMemo(() => formatUsdt(usdtBalance), [usdtBalance]);
 
   const handleCopy = (value: string, key: "deposit" | "payment" | "referral") => {
     if (!navigator?.clipboard) {
@@ -954,7 +985,7 @@ export default function PersonalCenter() {
                         <div>
                           <p className="text-sm text-[#8d9096]">Game Coins</p>
                           <p className="text-3xl font-semibold text-[#f5c245]">
-                            {wallet.gameCoins}
+                            {formattedGameCoinsBalance}
                           </p>
                         </div>
                       </div>
@@ -977,7 +1008,7 @@ export default function PersonalCenter() {
                         <div>
                           <p className="text-sm text-[#8d9096]">USDT</p>
                           <p className="text-3xl font-semibold text-[#4ade80]">
-                            {wallet.usdt}
+                            {formattedUsdtBalance}
                           </p>
                         </div>
                       </div>
@@ -1159,7 +1190,7 @@ export default function PersonalCenter() {
                     <div>
                       <p className="text-sm text-[#8d9096]">Available Balance</p>
                       <p className="mt-1 text-2xl font-semibold text-[#4ade80]">
-                        {wallet.usdt} USDT
+                        {formattedUsdtBalance} USDT
                       </p>
                     </div>
 
