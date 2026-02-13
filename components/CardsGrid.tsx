@@ -15,6 +15,7 @@ interface CardsGridProps {
   cards: GameCard[];
   columns?: number; // 每行显示的卡片数量，默认4
   titleVariant?: "blue" | "pink" | "gold";
+  onCardClick?: (card: GameCard) => void;
 }
 
 const TITLE_GRADIENTS = {
@@ -74,6 +75,7 @@ export default function CardsGrid({
   cards,
   columns = 4,
   titleVariant,
+  onCardClick,
 }: CardsGridProps) {
   const titleGradient = resolveTitleGradient(title, titleVariant);
   const normalizedTitle = title?.trim().toLowerCase();
@@ -111,9 +113,14 @@ export default function CardsGrid({
           } as React.CSSProperties & { '--grid-columns': number }}
         >
           {cards.map((card) => (
-            <div
+            <button
               key={card.id}
-              className="group relative cursor-pointer flex flex-col"
+              type="button"
+              onClick={() => onCardClick?.(card)}
+              className={`group relative flex flex-col w-full text-left bg-transparent border-0 p-0 ${
+                onCardClick ? "cursor-pointer" : "cursor-default"
+              }`}
+              aria-label={card.title || `Game ${card.id}`}
             >
               {/* 白色描边层 - 绝对定位，不挤压内容 */}
               <div className="absolute inset-0 rounded-lg border-[6px] border-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-10"></div>
@@ -148,7 +155,7 @@ export default function CardsGrid({
                   </div>
                 )}
               </div>
-            </div>
+            </button>
           ))}
         </div>
       </div>

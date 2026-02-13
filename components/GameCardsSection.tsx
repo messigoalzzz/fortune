@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import CardsGrid, { GameCard } from "@/components/CardsGrid";
 import { fetchGameList, GameListItem } from "@/lib/api";
 
+const GAME_WEB_BASE_URL = "http://game-web.cac.homes/";
+
 function normalizeGameCards(items: GameListItem[]): GameCard[] {
   return items
     .filter((item) => Boolean(item.coverUrl))
@@ -15,6 +17,21 @@ function normalizeGameCards(items: GameListItem[]): GameCard[] {
         title: title || undefined,
       };
     });
+}
+
+function resolveGameId(value: GameCard["id"]): number | null {
+  if (typeof value === "number" && Number.isFinite(value)) {
+    return Math.trunc(value);
+  }
+  if (typeof value === "string") {
+    const trimmed = value.trim();
+    if (!trimmed) return null;
+    const parsed = Number(trimmed);
+    if (Number.isFinite(parsed)) {
+      return Math.trunc(parsed);
+    }
+  }
+  return null;
 }
 
 export default function GameCardsSection() {
@@ -52,12 +69,47 @@ export default function GameCardsSection() {
   const resolvedFeaturedCards = featuredCards.length
     ? featuredCards
     : popularCards;
+  const handleCardClick = (card: GameCard) => {
+    const userName = localStorage.getItem("uname");
+    const launchToken = localStorage.getItem("jwt") || localStorage.getItem("token");
+    if (!userName || !launchToken) {
+      window.dispatchEvent(new Event("open-login-modal"));
+      return;
+    }
+
+    const gameId = resolveGameId(card.id);
+    if (gameId === null) {
+      return;
+    }
+
+    const params = new URLSearchParams({
+      user_name: userName,
+      token: launchToken,
+      game_id: String(gameId),
+    });
+    window.location.href = `${GAME_WEB_BASE_URL}?${params.toString()}`;
+  };
 
   return (
     <>
-      <CardsGrid title="Popular" cards={popularCards} columns={4} />
-      <CardsGrid title="NEW" cards={resolvedGameCards} columns={4} />
-      <CardsGrid title="FEATURED" cards={resolvedFeaturedCards} columns={4} />
+      <CardsGrid
+        title="Popular"
+        cards={popularCards}
+        columns={4}
+        onCardClick={handleCardClick}
+      />
+      <CardsGrid
+        title="NEW"
+        cards={resolvedGameCards}
+        columns={4}
+        onCardClick={handleCardClick}
+      />
+      <CardsGrid
+        title="FEATURED"
+        cards={resolvedFeaturedCards}
+        columns={4}
+        onCardClick={handleCardClick}
+      />
     </>
   );
 }

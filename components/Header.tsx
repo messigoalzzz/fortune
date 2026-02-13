@@ -90,6 +90,17 @@ export default function Header() {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
+  useEffect(() => {
+    const handleOpenLoginModal = () => {
+      setLoginOpen(true);
+      setSignupOpen(false);
+    };
+    window.addEventListener("open-login-modal", handleOpenLoginModal);
+    return () => {
+      window.removeEventListener("open-login-modal", handleOpenLoginModal);
+    };
+  }, []);
+
   // 点击外部关闭下拉菜单
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
