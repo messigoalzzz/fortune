@@ -48,6 +48,10 @@ export default function Header() {
       .then((response) => {
         const payload = response.data;
         if (payload.code !== 1 || !payload.data) return;
+        localStorage.setItem("token", payload.data.token || token);
+        if (payload.data.jwt) {
+          localStorage.setItem("jwt", payload.data.jwt);
+        }
         const displayName = payload.data.unick || payload.data.uname || uname;
         if (displayName) {
           setUser({ uname: displayName });

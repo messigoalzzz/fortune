@@ -71,7 +71,7 @@ export default function GameCardsSection() {
     : popularCards;
   const handleCardClick = (card: GameCard) => {
     const userName = localStorage.getItem("uname");
-    const launchToken = localStorage.getItem("jwt") || localStorage.getItem("token");
+    const launchToken = localStorage.getItem("jwt");
     if (!userName || !launchToken) {
       window.dispatchEvent(new Event("open-login-modal"));
       return;

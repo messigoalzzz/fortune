@@ -15,6 +15,7 @@ export type ApiResponse<T = unknown> = {
 
 export type LoginResponse = {
   token: string;
+  jwt?: string;
   expiretime: number;
   uid: number;
   uname: string;
@@ -33,9 +34,11 @@ export type RegisterResponse = {
 };
 
 export type UserInfoResponse = {
+  token?: string;
   uid: number;
   uname: string;
   unick?: string;
+  jwt?: string;
   uchip?: number | string;
   balance?: number | string;
 };

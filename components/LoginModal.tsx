@@ -44,6 +44,9 @@ export default function LoginModal({ onClose, onSwitchToSignup }: LoginModalProp
       const response = await login({ uname: uname.trim(), upwd: upwd.trim() });
       if (response.data.code === 1 && response.data.data) {
         localStorage.setItem("token", response.data.data.token);
+        if (response.data.data.jwt) {
+          localStorage.setItem("jwt", response.data.data.jwt);
+        }
         localStorage.setItem("uid", String(response.data.data.uid));
         localStorage.setItem("uname", response.data.data.uname);
         toast.success("Login successful!");
