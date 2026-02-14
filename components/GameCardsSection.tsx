@@ -6,14 +6,25 @@ import { fetchGameList, GameListItem } from "@/lib/api";
 
 const GAME_WEB_BASE_URL = "http://game-web.cac.homes/";
 
-function normalizeGameCards(items: GameListItem[]): GameCard[] {
+function withCacheBust(url: string, version: number): string {
+  try {
+    const parsed = new URL(url);
+    parsed.searchParams.set("v", String(version));
+    return parsed.toString();
+  } catch {
+    const separator = url.includes("?") ? "&" : "?";
+    return `${url}${separator}v=${version}`;
+  }
+}
+
+function normalizeGameCards(items: GameListItem[], version: number): GameCard[] {
   return items
     .filter((item) => Boolean(item.coverUrl))
     .map((item) => {
       const title = (item.name ?? item.namee)?.trim();
       return {
         id: item.gameId ?? item.coverUrl,
-        image: item.coverUrl,
+        image: withCacheBust(item.coverUrl, version),
         title: title || undefined,
       };
     });
@@ -46,7 +57,7 @@ export default function GameCardsSection() {
         if (payload.code !== 1 || !Array.isArray(payload.data)) {
           return;
         }
-        const normalized = normalizeGameCards(payload.data);
+        const normalized = normalizeGameCards(payload.data, Date.now());
         if (active) {
           setCards(normalized);
         }

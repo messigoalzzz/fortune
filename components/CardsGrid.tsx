@@ -1,7 +1,7 @@
 "use client";
 
 import Image, { type StaticImageData } from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export interface GameCard {
   id: string | number;
@@ -51,6 +51,10 @@ function GameImage({
   alt: string;
 }) {
   const [src, setSrc] = useState<string | StaticImageData>(imgUrl);
+
+  useEffect(() => {
+    setSrc(imgUrl);
+  }, [imgUrl]);
 
   const handleError = () => {
     if (src !== "/popular/1.webp") {
