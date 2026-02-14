@@ -11,14 +11,14 @@ import "swiper/css/pagination";
 import "swiper/css/effect-fade";
 
 const banners = [
-  "/banner1.mp4",
-  "/banner2.mp4",
+  // "/banner1.mp4",
+  // "/banner2.mp4",
   "/banner3.mp4",
 ];
 
 const bannerTexts = [
-  "/banner-text1.webp",
-  "/banner-text2.webp",
+  // "/banner-text1.webp",
+  // "/banner-text2.webp",
   "/banner-text3.webp",
 ];
 

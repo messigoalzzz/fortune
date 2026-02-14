@@ -50,7 +50,7 @@ export default function Home() {
       <Header />
       <main>
         <BannerCarousel />
-        <GameCategoryNav />
+        {/* <GameCategoryNav /> */}
 
         <GameCardsSection />
 
