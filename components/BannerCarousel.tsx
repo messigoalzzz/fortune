@@ -84,10 +84,9 @@ export default function BannerCarousel() {
                   <div className="flex flex-wrap items-center gap-6 pointer-events-auto ml-4 md:ml-6 lg:ml-8">
                     <a
                       href="#"
-                      className="highlight-button text-lg shadow-lg shadow-black/30 transition-transform duration-200 hover:scale-[1.02]"
+                      className="header-button-signup text-sm w-auto bg-black"
                     >
-                      <div aria-hidden="true" />
-                      <span>Sign Up</span>
+                      Sign up
                     </a>
                     <a
                       href="#"
