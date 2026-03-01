@@ -17,13 +17,11 @@ type LoginModalProps = {
 type FieldErrors = {
   uname?: string;
   upwd?: string;
-  agreed?: string;
 };
 
 export default function LoginModal({ onClose, onSwitchToSignup }: LoginModalProps) {
   const [uname, setUname] = useState("");
   const [upwd, setUpwd] = useState("");
-  const [agreed, setAgreed] = useState(false);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState<MessageState | null>(null);
   const [errors, setErrors] = useState<FieldErrors>({});
@@ -32,7 +30,6 @@ export default function LoginModal({ onClose, onSwitchToSignup }: LoginModalProp
     const next: FieldErrors = {};
     if (!uname.trim()) next.uname = "This is required";
     if (!upwd.trim()) next.upwd = "This is required";
-    if (!agreed) next.agreed = "Please confirm Terms & Conditions";
     setErrors(next);
     return Object.keys(next).length === 0;
   };
@@ -99,7 +96,7 @@ export default function LoginModal({ onClose, onSwitchToSignup }: LoginModalProp
                 setErrors((prev) => ({ ...prev, uname: "This is required" }));
               }
             }}
-            className="h-10 w-full rounded-[10px] border border-transparent bg-[#0C0F16] px-5 text-base text-[#eef3ff] outline-none transition focus:border-[#292D39]"
+            className="h-10 w-full rounded-[10px] border border-transparent bg-[#0C0F16] px-3 text-base text-[#eef3ff] outline-none transition focus:border-[#292D39]"
             autoComplete="username"
           />
           {errors.uname && <p className="mt-1 text-xs text-[#ff8181]">{errors.uname}</p>}
@@ -125,7 +122,7 @@ export default function LoginModal({ onClose, onSwitchToSignup }: LoginModalProp
                 setErrors((prev) => ({ ...prev, upwd: "This is required" }));
               }
             }}
-            className="h-10 w-full rounded-[10px] border border-transparent bg-[#0C0F16] px-5 text-base text-[#eef3ff] outline-none transition focus:border-[#292D39]"
+            className="h-10 w-full rounded-[10px] border border-transparent bg-[#0C0F16] px-3 text-base text-[#eef3ff] outline-none transition focus:border-[#292D39]"
             autoComplete="current-password"
           />
           {errors.upwd && <p className="mt-1 text-xs text-[#ff8181]">{errors.upwd}</p>}
@@ -133,11 +130,10 @@ export default function LoginModal({ onClose, onSwitchToSignup }: LoginModalProp
       </div>
 
          <div className="mt-3">
-          <p className="text-xs text-left text-[#eef3ff]">
+          <p className="text-xs leading-4 text-left text-[#eef3ff]">
             By logging in, you confirm that you're of legal gambling age (18+) and agree to
             the <span className="text-[#169af0]"> Terms &amp; Conditions.</span>
           </p>
-          {errors.agreed && <p className="mt-1 text-xs text-[#ff8181]">{errors.agreed}</p>}
         </div>
 
       <MessageTip message={message} />

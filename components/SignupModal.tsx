@@ -4,8 +4,6 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 import { register, sendRegisterCode } from "@/lib/api";
 import Modal, {
-  FormField,
-  inputClassName,
   MessageTip,
   extractErrorMessage,
   type MessageState,
@@ -44,7 +42,6 @@ export default function SignupModal({
   const [message, setMessage] = useState<MessageState | null>(null);
   const [errors, setErrors] = useState<FieldErrors>({});
 
-  // 启动倒计时
   const startCountdown = useCallback(() => {
     setCountdown(60);
     timerRef.current = setInterval(() => {
@@ -59,7 +56,6 @@ export default function SignupModal({
     }, 1000);
   }, []);
 
-  // 组件卸载时清除定时器
   useEffect(() => {
     return () => {
       if (timerRef.current) clearInterval(timerRef.current);
@@ -177,75 +173,130 @@ export default function SignupModal({
 
   return (
     <Modal
-      title="Create account"
+      title="Creat account"
       titleId="signup-modal-title"
       onClose={onClose}
-      maxWidth="max-w-[440px]"
+      maxWidth="max-w-[345px]"
+      variant="dark"
     >
       <div className="space-y-4">
-        <FormField
-          label="Username"
-          type="text"
-          value={uname}
-          onChange={(v) => { setUname(v); clearError("uname"); }}
-          onBlur={() => {
-            if (!uname.trim()) setErrors((prev) => ({ ...prev, uname: "This is required" }));
-          }}
-          error={errors.uname}
-        />
-        <FormField
-          label="Email address"
-          type="email"
-          value={email}
-          onChange={(v) => { setEmail(v); clearError("email"); }}
-          onBlur={() => {
-            if (!email.trim()) {
-              setErrors((prev) => ({ ...prev, email: "This is required" }));
-            } else if (!EMAIL_RE.test(email.trim())) {
-              setErrors((prev) => ({ ...prev, email: "Invalid email address" }));
-            }
-          }}
-          error={errors.email}
-        />
-        <div className="flex items-start gap-3">
-          <FormField
-            label="Verification code"
-            type="text"
-            value={code}
-            onChange={(v) => { setCode(v); clearError("code"); }}
-            onBlur={() => {
-              if (!code.trim()) setErrors((prev) => ({ ...prev, code: "This is required" }));
-            }}
-            error={errors.code}
-            className="flex-1"
-          />
-          <button
-            type="button"
-            className="h-[54px] shrink-0 rounded-[6px] bg-[#0a86d8] px-4 text-[16px] font-semibold text-white disabled:cursor-not-allowed disabled:opacity-60"
-            onClick={handleSendCode}
-            disabled={sending || countdown > 0 || !email.trim()}
+        <div>
+          <label
+            htmlFor="signup-uname"
+            className="mb-2 block text-[16px] font-medium leading-6 text-[#eef3ff]"
           >
-            {sending ? "Sending..." : countdown > 0 ? `${countdown}s` : "Send code"}
-          </button>
+            Username
+          </label>
+          <input
+            id="signup-uname"
+            type="text"
+            value={uname}
+            onChange={(event) => {
+              setUname(event.target.value);
+              clearError("uname");
+            }}
+            onBlur={() => {
+              if (!uname.trim()) setErrors((prev) => ({ ...prev, uname: "This is required" }));
+            }}
+            className="h-10 w-full rounded-[10px] border border-transparent bg-[#0C0F16] px-3 text-base text-[#eef3ff] outline-none transition focus:border-[#292D39]"
+            autoComplete="username"
+          />
+          {errors.uname && <p className="mt-1 text-xs text-[#ff8181]">{errors.uname}</p>}
         </div>
-        <FormField
-          label="Password"
-          type="password"
-          value={upwd}
-          onChange={(v) => { setUpwd(v); clearError("upwd"); }}
-          onBlur={() => {
-            if (!upwd.trim()) {
-              setErrors((prev) => ({ ...prev, upwd: "This is required" }));
-            } else if (upwd.trim().length < 6) {
-              setErrors((prev) => ({ ...prev, upwd: "At least 6 characters" }));
-            }
-          }}
-          error={errors.upwd}
-        />
+
+        <div>
+          <label
+            htmlFor="signup-email"
+            className="mb-2 block text-[16px] font-medium leading-6 text-[#eef3ff]"
+          >
+            E-mail Address
+          </label>
+          <input
+            id="signup-email"
+            type="email"
+            value={email}
+            onChange={(event) => {
+              setEmail(event.target.value);
+              clearError("email");
+            }}
+            onBlur={() => {
+              if (!email.trim()) {
+                setErrors((prev) => ({ ...prev, email: "This is required" }));
+              } else if (!EMAIL_RE.test(email.trim())) {
+                setErrors((prev) => ({ ...prev, email: "Invalid email address" }));
+              }
+            }}
+            className="h-10 w-full rounded-[10px] border border-transparent bg-[#0C0F16] px-3 text-base text-[#eef3ff] outline-none transition focus:border-[#292D39]"
+            autoComplete="email"
+          />
+          {errors.email && <p className="mt-1 text-xs text-[#ff8181]">{errors.email}</p>}
+        </div>
+
+        <div>
+          <label
+            htmlFor="signup-code"
+            className="mb-2 block text-[16px] font-medium leading-6 text-[#eef3ff]"
+          >
+            Verification code
+          </label>
+          <div className="relative">
+            <input
+              id="signup-code"
+              type="text"
+              value={code}
+              onChange={(event) => {
+                setCode(event.target.value);
+                clearError("code");
+              }}
+              onBlur={() => {
+                if (!code.trim()) setErrors((prev) => ({ ...prev, code: "This is required" }));
+              }}
+              className="h-10 w-full rounded-[10px] border border-transparent bg-[#0C0F16] px-3 pr-20 text-base text-[#eef3ff] outline-none transition focus:border-[#292D39]"
+              autoComplete="one-time-code"
+            />
+            <button
+              type="button"
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-[16px] font-medium text-[#00ff5a] transition hover:text-[#3cff82] disabled:cursor-not-allowed disabled:opacity-50"
+              onClick={handleSendCode}
+              disabled={sending || countdown > 0 || !email.trim()}
+            >
+              {sending ? "sending..." : countdown > 0 ? `${countdown}s` : "send"}
+            </button>
+          </div>
+          {errors.code && <p className="mt-1 text-xs text-[#ff8181]">{errors.code}</p>}
+        </div>
+
+        <div>
+          <label
+            htmlFor="signup-upwd"
+            className="mb-2 block text-base font-medium text-[#eef3ff]"
+          >
+            Password
+          </label>
+          <input
+            id="signup-upwd"
+            type="password"
+            value={upwd}
+            onChange={(event) => {
+              setUpwd(event.target.value);
+              clearError("upwd");
+            }}
+            onBlur={() => {
+              if (!upwd.trim()) {
+                setErrors((prev) => ({ ...prev, upwd: "This is required" }));
+              } else if (upwd.trim().length < 6) {
+                setErrors((prev) => ({ ...prev, upwd: "At least 6 characters" }));
+              }
+            }}
+            className="h-10 w-full rounded-[10px] border border-transparent bg-[#0C0F16] px-3 text-base text-[#eef3ff] outline-none transition focus:border-[#292D39]"
+            autoComplete="new-password"
+          />
+          {errors.upwd && <p className="mt-1 text-xs text-[#ff8181]">{errors.upwd}</p>}
+        </div>
       </div>
 
-      <div className="mt-6 flex items-start gap-4">
-        <label className="mt-1 flex h-[44px] w-[44px] cursor-pointer items-center justify-center">
+      <div className="mt-5 flex items-start gap-3">
+        <label className="mt-1 flex h-[44px] w-[44px] cursor-pointer items-start justify-center">
           <input
             type="checkbox"
             className="sr-only"
@@ -262,9 +313,7 @@ export default function SignupModal({
             } ${agreed ? "hidden" : "block"}`}
           />
           <svg
-            className={`h-[28px] w-[28px] text-[#0a86d8] ${
-              agreed ? "block" : "hidden"
-            }`}
+            className={`h-[28px] w-[28px] text-[#0a86d8] ${agreed ? "block" : "hidden"}`}
             fill="currentColor"
             viewBox="0 0 100 100"
             xmlns="http://www.w3.org/2000/svg"
@@ -276,19 +325,17 @@ export default function SignupModal({
           </svg>
         </label>
         <div>
-          <p className="text-[16px] leading-6 text-[#343637]">
-            I confirm that I am of legal gambling age (18+) in my jurisdiction
-            and I agree to the <span className="text-[#0a86d8]">Terms &amp; Conditions</span>.
+          <p className="text-xs leading-4 text-left text-[#eef3ff]">
+            I confirm that I am of legal gambling age (18+) in my jurisdiction and I agree to the{" "}
+            <span className="text-[#169af0]">Terms &amp; Conditions.</span>
           </p>
-          {errors.agreed && (
-            <p className="mt-1 text-[14px] text-[#c14949]">{errors.agreed}</p>
-          )}
+          {errors.agreed && <p className="mt-1 text-xs text-[#ff8181]">{errors.agreed}</p>}
         </div>
       </div>
 
       <button
         type="button"
-        className="mx-auto mt-6 block w-[78%] rounded-md bg-[#0a86d8] py-2 text-[18px] font-semibold text-white disabled:cursor-not-allowed disabled:opacity-60"
+        className="mx-auto mt-6 block w-[78%] rounded-[10px] bg-[#169af0] py-1.5 text-[18px] font-medium text-white transition hover:bg-[#1187d4] disabled:cursor-not-allowed disabled:opacity-60"
         onClick={handleRegister}
         disabled={loading}
       >
@@ -297,11 +344,11 @@ export default function SignupModal({
 
       <MessageTip message={message} />
 
-      <p className="mt-10 text-center text-[16px] text-[#343637]">
-        Already have an account?{" "}
+      <p className="mt-10 text-center text-base text-[#eef3ff]">
+        Already have an account ?{" "}
         <button
           type="button"
-          className="text-[#0a86d8] hover:underline"
+          className="text-[#169af0] hover:underline"
           onClick={onSwitchToLogin}
         >
           Log in.
