@@ -45,42 +45,42 @@ type PaymentInfoItem = {
 };
 
 const HISTORY_ITEMS: HistoryItem[] = [
-  {
-    id: "TX-10231",
-    type: "Deposit",
-    method: "USDT (TRC20)",
-    amount: "+520.50",
-    status: "Completed",
-    time: "2026-02-08 13:12",
-    orderId: "TX-10231",
-  },
-  {
-    id: "TX-10219",
-    type: "Withdraw",
-    method: "USDT (TRC20)",
-    amount: "-120.00",
-    status: "Processing",
-    time: "2026-02-07 18:34",
-    orderId: "TX-10219",
-  },
-  {
-    id: "TX-10188",
-    type: "Deposit",
-    method: "Game Coins",
-    amount: "+8,000",
-    status: "Completed",
-    time: "2026-02-06 09:20",
-    orderId: "TX-10188",
-  },
-  {
-    id: "TX-10170",
-    type: "Bonus",
-    method: "Referral Reward",
-    amount: "+25.00",
-    status: "Completed",
-    time: "2026-02-04 22:08",
-    orderId: "TX-10170",
-  },
+  // {
+  //   id: "TX-10231",
+  //   type: "Deposit",
+  //   method: "USDT (TRC20)",
+  //   amount: "+520.50",
+  //   status: "Completed",
+  //   time: "2026-02-08 13:12",
+  //   orderId: "TX-10231",
+  // },
+  // {
+  //   id: "TX-10219",
+  //   type: "Withdraw",
+  //   method: "USDT (TRC20)",
+  //   amount: "-120.00",
+  //   status: "Processing",
+  //   time: "2026-02-07 18:34",
+  //   orderId: "TX-10219",
+  // },
+  // {
+  //   id: "TX-10188",
+  //   type: "Deposit",
+  //   method: "Game Coins",
+  //   amount: "+8,000",
+  //   status: "Completed",
+  //   time: "2026-02-06 09:20",
+  //   orderId: "TX-10188",
+  // },
+  // {
+  //   id: "TX-10170",
+  //   type: "Bonus",
+  //   method: "Referral Reward",
+  //   amount: "+25.00",
+  //   status: "Completed",
+  //   time: "2026-02-04 22:08",
+  //   orderId: "TX-10170",
+  // },
 ];
 
 const REFERRAL_ITEMS: ReferralItem[] = [
@@ -505,19 +505,15 @@ function TabIcon({ kind, className }: { kind: TabKey; className?: string }) {
       );
     case "history":
       return (
-        <svg
-          className={className}
-          viewBox="0 0 24 24"
+<svg    className={className}     viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
           strokeWidth="2"
           strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <path d="M3 12a9 9 0 1 0 9-9" />
-          <path d="M3 4v5h5" />
-          <path d="M12 7v5l3 3" />
-        </svg>
+          strokeLinejoin="round" xmlns="http://www.w3.org/2000/svg">
+<path d="M9.5 7.00001C9.5 6.72387 9.27614 6.50001 9 6.50001C8.72386 6.50001 8.5 6.72387 8.5 7.00001H9H9.5ZM9 11.4563H8.5V11.7993L8.81998 11.9228L9 11.4563ZM8.43928 17.8463L8.34173 18.3367H8.34173L8.43928 17.8463ZM17.6555 7.67774L17.1771 7.82288V7.82288L17.6555 7.67774ZM14.4446 3.34826L14.7223 2.93252V2.93252L14.4446 3.34826ZM9.21586 2.03853L9.26487 2.53613L9.21586 2.03853ZM9 7.00001H8.5V11.4563H9H9.5V7.00001H9ZM9 11.4563L8.81998 11.9228L12.82 13.4665L13 13L13.18 12.5335L9.18002 10.9898L9 11.4563ZM2 10H1.5C1.5 11.9665 2.18186 13.8722 3.42941 15.3924L3.81592 15.0752L4.20242 14.758C3.10164 13.4167 2.5 11.7352 2.5 10H2ZM3.81592 15.0752L3.42941 15.3924C4.67696 16.9125 6.413 17.953 8.34173 18.3367L8.43928 17.8463L8.53682 17.3559C6.835 17.0174 5.3032 16.0993 4.20242 14.758L3.81592 15.0752ZM8.43928 17.8463L8.34173 18.3367C10.2705 18.7203 12.2726 18.4234 14.0069 17.4963L13.7712 17.0554L13.5355 16.6144C12.0052 17.4324 10.2386 17.6944 8.53682 17.3559L8.43928 17.8463ZM13.7712 17.0554L14.0069 17.4963C15.7412 16.5693 17.1004 15.0696 17.853 13.2528L17.391 13.0615L16.9291 12.8701C16.2651 14.4732 15.0658 15.7965 13.5355 16.6144L13.7712 17.0554ZM17.391 13.0615L17.853 13.2528C18.6055 11.436 18.7048 9.41444 18.134 7.53259L17.6555 7.67774L17.1771 7.82288C17.6807 9.48333 17.5931 11.2671 16.9291 12.8701L17.391 13.0615ZM17.6555 7.67774L18.134 7.53259C17.5631 5.65075 16.3574 4.02506 14.7223 2.93252L14.4446 3.34826L14.1668 3.76399C15.6095 4.728 16.6734 6.16243 17.1771 7.82288L17.6555 7.67774ZM14.4446 3.34826L14.7223 2.93252C13.0872 1.83998 11.1239 1.34819 9.16686 1.54094L9.21586 2.03853L9.26487 2.53613C10.9917 2.36605 12.724 2.79998 14.1668 3.76399L14.4446 3.34826ZM9.21586 2.03853L9.16686 1.54094C7.2098 1.73369 5.38013 2.59906 3.98959 3.9896L4.34315 4.34316L4.6967 4.69671C5.92365 3.46976 7.53806 2.7062 9.26487 2.53613L9.21586 2.03853Z" fill="#8A8D94"/>
+</svg>
+
       );
     case "referral":
       return (
@@ -901,7 +897,7 @@ export default function PersonalCenter() {
                     onClick={() => setActiveTab(tab.id)}
                     className={`flex items-center gap-2 rounded-full px-4 py-2 text-sm md:text-base font-semibold transition-all border ${
                       isActive
-                        ? "text-[#f5c245] border-[#3a3f52] bg-[linear-gradient(135deg,#1f2432,#151926)] shadow-[0_0_20px_rgba(245,194,69,0.2)]"
+                        ? "text-[#f5c245] border-[#3a3f52] bg-[linear-gradient(135deg,#1f2432,#151926)]"
                         : "text-[#8d9096] border-transparent hover:text-[#f5f6f7] hover:border-[#2b2f3b]"
                     }`}
                   >
@@ -919,7 +915,7 @@ export default function PersonalCenter() {
                 <div className="grid grid-cols-1 xl:grid-cols-[1.1fr_2fr] gap-6">
                   <div className="rounded-2xl border border-[#232736] bg-[#151925] p-6">
                     <div className="flex items-center gap-4">
-                      <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[linear-gradient(135deg,#f5c245,#b67a12)] text-xl font-bold text-[#161616]">
+                      <div className="flex size-[64px] items-center justify-center rounded-full bg-[linear-gradient(90deg,#ffaa34_0%,#ffd166_100%)] text-xl font-bold text-[#161616]">
                         {userInitial}
                       </div>
                       <div>
@@ -934,7 +930,6 @@ export default function PersonalCenter() {
                     </div>
                     <div className="mt-6 grid grid-cols-3 gap-3">
                       {[
-                        { label: "VIP Level", value: "VIP 2" },
                         { label: "Security", value: "Verified" },
                         { label: "Status", value: "Active" },
                       ].map((item) => (
@@ -949,68 +944,38 @@ export default function PersonalCenter() {
                         </div>
                       ))}
                     </div>
-                    <div className="mt-6 flex flex-col sm:flex-row gap-3">
-                      <button
-                        type="button"
-                        className="flex-1 h-[43px] rounded-[20px] bg-[linear-gradient(90deg,#ffaa34_0%,#ffd166_100%)] px-8 text-[18px] font-semibold text-[#121212] shadow-[0_10px_24px_rgba(255,170,52,0.22)] transition hover:brightness-105"
-                        onClick={() => setActiveTab("deposit")}
-                      >
-                        Deposit
-                      </button>
-                      <button
-                        type="button"
-                        className="flex-1 h-[43px] rounded-[20px] bg-[linear-gradient(90deg,#ffe9b6_0%,#5b4002_100%)] px-8 text-[18px] font-semibold text-[#f5f0e8] shadow-[0_10px_24px_rgba(91,64,2,0.24)] transition hover:brightness-105"
-                        onClick={() => setActiveTab("withdraw")}
-                      >
-                        Withdraw
-                      </button>
-                    </div>
                   </div>
 
                   <div className="rounded-2xl border border-[#232736] bg-[#11141f] p-6">
-                    <div className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] items-center gap-6">
-                      <div className="flex items-center gap-4">
-                        <div className="flex h-11 w-11 items-center justify-center rounded-full bg-[#1a2434] text-[#f5c245]">
-                          <svg
-                            className="h-6 w-6"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          >
-                            <circle cx="12" cy="12" r="9" />
-                            <path d="M9 12h6" />
-                            <path d="M12 9v6" />
-                          </svg>
+                    <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-8">
+                      <div className="flex items-center gap-4 md:gap-5">
+                        <div className="flex size-[64px] shrink-0 items-center justify-center rounded-full bg-[#172946]">
+                          <div className="relative flex size-8 items-center justify-center rounded-full border-[5px] border-[#ffb336] text-[#ffb336]">
+                            <span className="absolute h-[2px] w-[12px] rounded-full bg-current" />
+                            <span className="absolute h-[12px] w-[2px] rounded-full bg-current" />
+                          </div>
                         </div>
                         <div>
-                          <p className="text-sm text-[#8d9096]">Game Coins</p>
-                          <p className="text-3xl font-semibold text-[#f5c245]">
+                          <p className="text-base font-medium leading-none text-[#8f96a6]">
+                            Game Coins
+                          </p>
+                          <p className="mt-1 text-3xl font-semibold text-[#ffb336]">
                             {formattedGameCoinsBalance}
                           </p>
                         </div>
                       </div>
-                      <div className="hidden md:block h-16 w-px bg-[#232736]" />
-                      <div className="flex items-center gap-4">
-                        <div className="flex h-11 w-11 items-center justify-center rounded-full bg-[#1a2434] text-[#4ade80]">
-                          <svg
-                            className="h-6 w-6"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          >
-                            <circle cx="12" cy="12" r="9" />
-                            <path d="M7 12h10" />
-                          </svg>
+
+                      <div className="flex items-center gap-4 md:gap-5">
+                        <div className="flex size-[64px] shrink-0 items-center justify-center rounded-full bg-[#172946]">
+                          <div className="relative flex size-8 items-center justify-center rounded-full border-[5px] border-[#f4e9c0] text-[#f4e9c0]">
+                            <span className="absolute h-[2px] w-[12px] rounded-full bg-current" />
+                          </div>
                         </div>
                         <div>
-                          <p className="text-sm text-[#8d9096]">USDT</p>
-                          <p className="text-3xl font-semibold text-[#4ade80]">
+                          <p className="text-base font-medium leading-none text-[#8f96a6]">
+                            USDT
+                          </p>
+                          <p className="mt-1 text-3xl font-semibold text-[#f4e9c0]">
                             {formattedUsdtBalance}
                           </p>
                         </div>
@@ -1148,7 +1113,7 @@ export default function PersonalCenter() {
                       type="button"
                       onClick={handleCreateOrder}
                       disabled={depositLoading}
-                      className="w-full rounded-full bg-[#183025] px-4 py-3 text-sm font-semibold text-[#4ade80] shadow-[0_8px_24px_rgba(74,222,128,0.2)] transition hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-60"
+                      className="w-full h-[43px] rounded-[20px] bg-[linear-gradient(90deg,#ffaa34_0%,#ffd166_100%)] px-8 text-[18px] font-semibold text-[#121212] shadow-[0_10px_24px_rgba(255,170,52,0.22)] transition hover:brightness-105 disabled:cursor-not-allowed disabled:opacity-60"
                     >
                       {depositLoading ? "Creating order..." : "Create Order"}
                     </button>
@@ -1240,7 +1205,7 @@ export default function PersonalCenter() {
                       type="button"
                       onClick={handleWithdraw}
                       disabled={withdrawLoading}
-                      className="w-full rounded-full bg-[#2f1b1d] px-4 py-3 text-sm font-semibold text-[#f87171] shadow-[0_8px_24px_rgba(248,113,113,0.2)] transition hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-60"
+                      className="w-full h-[43px] rounded-[20px] bg-[linear-gradient(90deg,#ffe9b6_0%,#5b4002_100%)] px-8 text-[18px] font-semibold text-[#f5f0e8] shadow-[0_10px_24px_rgba(91,64,2,0.24)] transition hover:brightness-105 disabled:cursor-not-allowed disabled:opacity-60"
                     >
                       {withdrawLoading ? "Submitting..." : "Submit Withdrawal"}
                     </button>
