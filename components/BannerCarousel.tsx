@@ -11,7 +11,7 @@ import "swiper/css/pagination";
 import "swiper/css/effect-fade";
 
 const banners = [
-  "/banner-length.mov",
+  "/banner-length.mp4",
 ];
 
 const bannerTexts = [
@@ -20,7 +20,9 @@ const bannerTexts = [
 
 export default function BannerCarousel() {
   const singleBanner = banners.length === 1;
-  const useAmbientBackground = singleBanner && banners[0] === "/banner-length.mov";
+  const useAmbientBackground =
+    singleBanner &&
+    (banners[0] === "/banner-length.mp4" || banners[0] === "/banner-length.mov");
 
   const isVideoBanner = (value: string) =>
     value.endsWith(".mp4") || value.endsWith(".mov") || value.endsWith(".webm");
