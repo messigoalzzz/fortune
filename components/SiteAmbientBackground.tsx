@@ -22,13 +22,13 @@ export default function SiteAmbientBackground() {
 
   return (
     <div className="pointer-events-none absolute inset-x-0 top-0 z-0 flex justify-center">
-      <div className="relative h-[1600px] w-[2400px] max-w-none">
+      <div className="relative h-[max(1600px,100vh)] w-[max(2400px,100vw)] max-w-none">
         <Image
           src="/banner-length.jpg"
           alt=""
           fill
           priority
-          sizes="(max-width: 2400px) 100vw, 2400px"
+          sizes="100vw"
           className={`object-cover object-top transition-opacity duration-700 ${
             videoReady && !videoFailed ? "opacity-0" : "opacity-90"
           }`}
