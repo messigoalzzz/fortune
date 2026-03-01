@@ -22,20 +22,20 @@ export default function SiteAmbientBackground() {
 
   return (
     <div className="pointer-events-none absolute inset-x-0 top-0 z-0 flex justify-center">
-      <div className="relative h-[max(1600px,100vh)] w-[max(2400px,100vw)] max-w-none">
+      <div className="relative h-[max(1100px,100vh)] w-[max(2400px,100vw)] max-w-none md:h-[max(1600px,100vh)]">
         <Image
           src="/banner-length.jpg"
           alt=""
           fill
           priority
           sizes="100vw"
-          className={`object-cover object-top transition-opacity duration-700 ${
+          className={`object-cover object-center transition-opacity duration-700 md:object-top ${
             videoReady && !videoFailed ? "opacity-0" : "opacity-90"
           }`}
         />
         <video
           ref={videoRef}
-          className={`absolute inset-0 h-full w-full object-cover object-top transition-opacity duration-700 ${
+          className={`absolute inset-0 h-full w-full object-cover object-center transition-opacity duration-700 md:object-top ${
             videoReady && !videoFailed ? "opacity-90" : "opacity-0"
           }`}
           autoPlay
