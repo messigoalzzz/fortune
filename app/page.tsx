@@ -46,9 +46,33 @@ const featuredCards: GameCard[] = [
 
 export default function Home() {
   return (
-    <div className="min-h-screen">
+    <div className="relative min-h-screen overflow-x-clip bg-[var(--background)]">
+      <div className="pointer-events-none absolute inset-x-0 top-0 z-0 flex justify-center">
+        <div className="relative h-[1600px] w-[2400px] max-w-none">
+          <img
+            src="/banner-length.jpg"
+            alt=""
+            aria-hidden="true"
+            className="absolute inset-0 h-full w-full object-cover object-top opacity-90"
+          />
+          <video
+            className="absolute inset-0 h-full w-full object-cover object-top opacity-90"
+            autoPlay
+            loop
+            muted
+            playsInline
+            preload="metadata"
+            poster="/banner-length.jpg"
+            aria-hidden="true"
+          >
+            <source src="/banner-length.mov" />
+          </video>
+          <div className="absolute inset-0 bg-[radial-gradient(120%_92%_at_50%_0%,rgba(37,68,122,0.08)_0%,rgba(8,12,24,0.35)_58%,rgba(0,0,0,0.82)_100%)]" />
+          <div className="absolute inset-x-0 bottom-0 h-[48%] bg-gradient-to-b from-transparent via-[#060b16]/85 to-[var(--background)]" />
+        </div>
+      </div>
       <Header />
-      <main>
+      <main className="relative z-10">
         <BannerCarousel />
         {/* <GameCategoryNav /> */}
 

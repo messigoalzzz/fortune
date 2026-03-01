@@ -88,7 +88,7 @@ export default function CardsGrid({
     <section 
       className="py-6 md:py-7"
       style={{
-        backgroundColor: backgroundColor || "var(--background-elevated)",
+        // backgroundColor: backgroundColor || "var(--background-elevated)",
       }}
     >
       <div className="container-custom">

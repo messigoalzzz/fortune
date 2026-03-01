@@ -11,18 +11,20 @@ import "swiper/css/pagination";
 import "swiper/css/effect-fade";
 
 const banners = [
-  // "/banner1.mp4",
-  // "/banner2.mp4",
-  "/banner3.mp4",
+  "/banner-length.mov",
 ];
 
 const bannerTexts = [
-  // "/banner-text1.webp",
-  // "/banner-text2.webp",
   "/banner-text3.webp",
 ];
 
 export default function BannerCarousel() {
+  const singleBanner = banners.length === 1;
+  const useAmbientBackground = singleBanner && banners[0] === "/banner-length.mov";
+
+  const isVideoBanner = (value: string) =>
+    value.endsWith(".mp4") || value.endsWith(".mov") || value.endsWith(".webm");
+
   return (
     <section className="relative w-full">
       <Swiper
@@ -31,23 +33,31 @@ export default function BannerCarousel() {
         fadeEffect={{ crossFade: true }}
         spaceBetween={0}
         slidesPerView={1}
-        navigation
-        pagination={{ 
-          clickable: true,
-          dynamicBullets: false,
-        }}
-        autoplay={{
-          delay: 5000,
-          disableOnInteraction: false,
-          pauseOnMouseEnter: true,
-        }}
-        loop={true}
+        navigation={!singleBanner}
+        pagination={
+          singleBanner
+            ? false
+            : {
+                clickable: true,
+                dynamicBullets: false,
+              }
+        }
+        autoplay={
+          singleBanner
+            ? false
+            : {
+                delay: 5000,
+                disableOnInteraction: false,
+                pauseOnMouseEnter: true,
+              }
+        }
+        loop={!singleBanner}
         className="banner-swiper"
       >
         {banners.map((banner, index) => (
           <SwiperSlide key={index}>
-            <div className="relative w-full h-[500px] md:h-[600px] lg:h-[700px] overflow-hidden">
-              {banner.endsWith(".mp4") ? (
+            <div className="relative w-full h-[540px] md:h-[620px] lg:h-[700px] overflow-hidden">
+              {!useAmbientBackground && isVideoBanner(banner) ? (
                 <video
                   className="absolute inset-0 h-full w-full object-cover banner-image"
                   autoPlay
@@ -57,19 +67,22 @@ export default function BannerCarousel() {
                   preload="metadata"
                   aria-label={`Banner video ${index + 1}`}
                 >
-                  <source src={banner} type="video/mp4" />
+                  <source src={banner} />
                   Your browser does not support the video tag.
                 </video>
-              ) : (
+              ) : !useAmbientBackground ? (
                 <Image
                   src={banner}
                   alt={`Banner ${index + 1}`}
                   fill
-                  className="object-cover banner-image"
+                  className="object-cover object-center banner-image"
                   priority={index === 0}
-                  sizes="100vw"
+                  sizes="(max-width: 1200px) 100vw, 2400px"
                 />
+              ) : (
+                <div className="absolute inset-0" />
               )}
+              {/* <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(120%_95%_at_50%_0%,rgba(21,42,84,0.1)_0%,rgba(8,12,24,0.55)_72%,rgba(0,0,0,0.9)_100%)]" /> */}
               <div className="absolute inset-0 flex items-center justify-start pl-12 pr-6 md:pl-20 md:pr-10 lg:pl-28 lg:pr-12">
                 <div className="flex flex-col items-start gap-5 -translate-y-8 md:-translate-y-10 lg:-translate-y-12 pointer-events-none">
                   <Image
