@@ -9,6 +9,7 @@ type ModalProps = {
   onClose: () => void;
   children: ReactNode;
   maxWidth?: string;
+  variant?: "default" | "dark";
 };
 
 export type MessageState = {
@@ -23,7 +24,10 @@ export default function Modal({
   onClose,
   children,
   maxWidth = "max-w-[420px]",
+  variant = "default",
 }: ModalProps) {
+  const darkMode = variant === "dark";
+
   // 打开时锁定背景滚动，关闭时恢复
   useEffect(() => {
     const html = document.documentElement;
@@ -61,45 +65,65 @@ export default function Modal({
 
   return (
     <div
-      className="fixed inset-0 z-[100] flex items-center justify-center overscroll-none bg-black/60 px-4"
+      className={`fixed inset-0 z-[100] flex items-center justify-center overscroll-none px-4 ${
+        darkMode ? "bg-black/70" : "bg-black/60"
+      }`}
       role="dialog"
       aria-modal="true"
       aria-labelledby={titleId}
       // 不在遮罩层上绑定 onClose，防止误触关闭
     >
       <div
-        className={`w-full ${maxWidth} overflow-hidden rounded-md border border-black/10 bg-[#e9eaed] shadow-[0_18px_40px_rgba(0,0,0,0.45)]`}
+        className={`w-full ${maxWidth} overflow-hidden ${
+          darkMode
+            ? "rounded-[22px] border border-[#222d4b] bg-[linear-gradient(112deg,#0c1227_0%,#141e3c_48%,#0b1125_100%)] shadow-[0_28px_60px_rgba(0,0,0,0.6)]"
+            : "rounded-md border border-black/10 bg-[#e9eaed] shadow-[0_18px_40px_rgba(0,0,0,0.45)]"
+        }`}
       >
         {/* 标题栏 */}
-        <div className="relative border-b border-black/10 bg-[#dadbdc] px-3 py-3">
+        <div
+          className={`relative ${
+            darkMode
+              ? "p-6"
+              : "border-b border-black/10 bg-[#dadbdc] px-3 py-3"
+          }`}
+        >
           <h2
             id={titleId}
-            className="text-[32px] leading-10 font-semibold tracking-[0.5px] text-[#0a86d8]"
+            className={`font-semibold ${
+              darkMode
+                ? "text-[#f3f6ff] text-[24px] leading-7"
+                : "text-[24px] leading-7 text-[#0a86d8]"
+            }`}
           >
             {title}
           </h2>
           <button
             type="button"
             aria-label={`Close ${title} dialog`}
-            className="absolute right-4 top-4 flex h-10 w-10 items-center justify-center text-[#3a3a3a]"
+            className={`absolute flex size-7 items-center justify-center ${
+              darkMode
+                ? "right-5 top-5 text-[#f3f6ff]"
+                : "right-5 top-5 text-[#3a3a3a]"
+            }`}
             onClick={onClose}
           >
-            <svg
-              viewBox="0 0 24 24"
-              className="h-7 w-7"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth={3}
-              strokeLinecap="round"
-            >
-              <path d="M6 6l12 12" />
-              <path d="M18 6l-12 12" />
-            </svg>
+       <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M14.9496 3.63614C15.3401 3.24566 15.9732 3.24575 16.3637 3.63614C16.7542 4.02666 16.7542 4.65968 16.3637 5.0502L11.4135 9.99942L16.3637 14.9496C16.7542 15.3401 16.7542 15.9732 16.3637 16.3637C15.9732 16.7542 15.3401 16.7542 14.9496 16.3637L9.99943 11.4135L5.05021 16.3637C4.65969 16.7542 4.02667 16.7542 3.63615 16.3637C3.24576 15.9731 3.24567 15.3401 3.63615 14.9496L8.58537 9.99942L3.63615 5.0502C3.24564 4.65968 3.24563 4.02666 3.63615 3.63614C4.02667 3.24564 4.65969 3.24564 5.05021 3.63614L9.99943 8.58536L14.9496 3.63614Z" fill="white"/>
+        </svg>
+
           </button>
         </div>
 
         {/* 弹窗内容 */}
-        <div className="px-4 pb-8 pt-6" data-modal-content>
+        <div
+          className={
+            darkMode
+              ? "p-6 pt-0"
+              : "p-6 pt-0"
+          } 
+          data-modal-content
+        >
           {children}
         </div>
       </div>
