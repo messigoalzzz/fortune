@@ -952,14 +952,14 @@ export default function PersonalCenter() {
                     <div className="mt-6 flex flex-col sm:flex-row gap-3">
                       <button
                         type="button"
-                        className="flex-1 rounded-full bg-[#183025] px-4 py-3 text-sm font-semibold text-[#4ade80] shadow-[0_8px_24px_rgba(74,222,128,0.2)] transition hover:-translate-y-0.5"
+                        className="flex-1 h-[43px] rounded-[20px] bg-[linear-gradient(90deg,#ffaa34_0%,#ffd166_100%)] px-8 text-[18px] font-semibold text-[#121212] shadow-[0_10px_24px_rgba(255,170,52,0.22)] transition hover:brightness-105"
                         onClick={() => setActiveTab("deposit")}
                       >
                         Deposit
                       </button>
                       <button
                         type="button"
-                        className="flex-1 rounded-full bg-[#2f1b1d] px-4 py-3 text-sm font-semibold text-[#f87171] shadow-[0_8px_24px_rgba(248,113,113,0.2)] transition hover:-translate-y-0.5"
+                        className="flex-1 h-[43px] rounded-[20px] bg-[linear-gradient(90deg,#ffe9b6_0%,#5b4002_100%)] px-8 text-[18px] font-semibold text-[#f5f0e8] shadow-[0_10px_24px_rgba(91,64,2,0.24)] transition hover:brightness-105"
                         onClick={() => setActiveTab("withdraw")}
                       >
                         Withdraw
@@ -1019,14 +1019,14 @@ export default function PersonalCenter() {
                     <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-3">
                       <button
                         type="button"
-                        className="rounded-full bg-[#183025] px-4 py-3 text-sm font-semibold text-[#4ade80] shadow-[0_8px_24px_rgba(74,222,128,0.2)] transition hover:-translate-y-0.5"
+                        className="h-[43px] rounded-[20px] bg-[linear-gradient(90deg,#ffaa34_0%,#ffd166_100%)] px-8 text-[18px] font-semibold text-[#121212] shadow-[0_10px_24px_rgba(255,170,52,0.22)] transition hover:brightness-105"
                         onClick={() => setActiveTab("deposit")}
                       >
                         Deposit
                       </button>
                       <button
                         type="button"
-                        className="rounded-full bg-[#2f1b1d] px-4 py-3 text-sm font-semibold text-[#f87171] shadow-[0_8px_24px_rgba(248,113,113,0.2)] transition hover:-translate-y-0.5"
+                        className="h-[43px] rounded-[20px] bg-[linear-gradient(90deg,#ffe9b6_0%,#5b4002_100%)] px-8 text-[18px] font-semibold text-[#f5f0e8] shadow-[0_10px_24px_rgba(91,64,2,0.24)] transition hover:brightness-105"
                         onClick={() => setActiveTab("withdraw")}
                       >
                         Withdraw
