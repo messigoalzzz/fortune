@@ -5,7 +5,7 @@ const ul_li ='rounded-md border-[2px] border-[#393b3c] hover:border-[var(--backg
       <h1 className="bg-image-clip-text text-[2.5rem] mb-[30px]">Provably Fair Explained</h1>
 
       <p className="font-bold !text-2xl leading-9 mx-auto mb-[50px]">
-        All games at CryptoSlots.com are Provably Fair, which means you can easily verify the randomness and fairness of all game results you play. Check out our <a className="text-primary" href="#">Provably Fair games</a> now.
+        All games at FortuneX.com are Provably Fair, which means you can easily verify the randomness and fairness of all game results you play. Check out our <a className="text-primary" href="#">Provably Fair games</a> now.
       </p>
       <div className="grid grid-cols-1 md:grid-cols-[1fr_minmax(120px,300px)] gap-8">
         <p>
@@ -103,3 +103,4 @@ const ul_li ='rounded-md border-[2px] border-[#393b3c] hover:border-[var(--backg
 }
 
 export default ProvablyFairExplainedIndex;
+

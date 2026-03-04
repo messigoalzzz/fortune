@@ -21,7 +21,7 @@ function ProvablyFairExplainedVerification() {
         </li>
         <li>Press the &quot;Calculate SHA256 hash&quot; button.</li>
         <li>
-          Compare the &quot;Server hash&quot; displayed at CryptoSlots to the computed <em>SHA-256 Hash</em> on the independent
+          Compare the &quot;Server hash&quot; displayed at FortuneX to the computed <em>SHA-256 Hash</em> on the independent
           website. When identical, the result of your game was generated in accordance to the Provably Fair concept and
           no one tampered with the result.
         </li>
@@ -51,3 +51,4 @@ function ProvablyFairExplainedVerification() {
 }
 
 export default ProvablyFairExplainedVerification
+

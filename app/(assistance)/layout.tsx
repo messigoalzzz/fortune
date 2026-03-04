@@ -8,7 +8,7 @@ function AssistanceLayout({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="bg-[#e9eaed]">
-      <div className="text-center py-[30px]" style={{ background: '#e9eaed url("//www.cryptoslots.com/en/file/image/banners/info-banner.webp?build=202602231800") 50%/cover no-repeat' }}>
+      <div className="text-center py-[30px]" style={{ background: '#e9eaed url("//www.fortunex.com/en/file/image/banners/info-banner.webp?build=202602231800") 50%/cover no-repeat' }}>
         <div className="mx-auto max-w-[80rem] px-[1rem] flex flex-col space-y-[20px]">
           <h2 className="text-[#1e1f20] font-[600] text-[2rem] leading-[1.875] ">
             Need assistance? Contact us 24/7
@@ -34,3 +34,4 @@ function AssistanceLayout({ children }: { children: React.ReactNode }) {
 }
 
 export default AssistanceLayout;
+

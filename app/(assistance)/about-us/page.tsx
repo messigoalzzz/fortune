@@ -6,14 +6,14 @@ function AboutUsPage() {
       <p className="font-bold !text-2xl leading-9">Welcome to online gaming freedom!</p>
 
       <p>
-        CryptoSlots.com is operated by Slotland Entertainment S.A., an established player in the gaming industry for
+        FortuneX.com is operated by Slotland Entertainment S.A., an established player in the gaming industry for
         two decades and counting. Our experience and player focus allows us to provide you with an innovative concept
         and stellar service. Are you ready to cut the ties that bind you to traditional online casinos and allow
         yourself a limitless crypto-gaming experience?
       </p>
 
       <p>
-        At CryptoSlots every game you play is <a className="text-primary underline" href="/provably-fair-explained">Provably Fair</a>, allowing for unparalleled transparency every
+        At FortuneX every game you play is <a className="text-primary underline" href="/provably-fair-explained">Provably Fair</a>, allowing for unparalleled transparency every
         time you play. As a cryptocurrency-only casino, players have maximum control over their funds and can trace
         every bet they make.
       </p>
@@ -25,11 +25,12 @@ function AboutUsPage() {
         cryptocurrency millionaire.
       </p>
 
-      <p>We like to show not tell, so follow our lead and find out for yourself what makes CryptoSlots special. Your million dollar win awaits!</p>
+      <p>We like to show not tell, so follow our lead and find out for yourself what makes FortuneX special. Your million dollar win awaits!</p>
 
-      <p className="italic">Your CryptoSlots Team</p>
+      <p className="italic">Your FortuneX Team</p>
     </div>
   );
 }
 
 export default AboutUsPage;
+

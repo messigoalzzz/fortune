@@ -4,7 +4,7 @@ function ResponsibleGamingPage() {
       <h1 className="bg-image-clip-text text-[2.5rem] mb-[30px]">Responsible Gaming</h1>
 
       <p className="font-bold !text-2xl leading-9">
-        CryptoSlots is here to provide an excellent and enjoyable gaming experience and recognize our responsibility in
+        FortuneX is here to provide an excellent and enjoyable gaming experience and recognize our responsibility in
         preventing problematic activity.
       </p>
 
@@ -63,9 +63,9 @@ function ResponsibleGamingPage() {
 
       <h2 className="text-[2rem] leading-none">Underage gambling</h2>
       <p>
-        Players must be of legal gambling age in their jurisdiction (at least 18+) in order to play at CryptoSlots. It
+        Players must be of legal gambling age in their jurisdiction (at least 18+) in order to play at FortuneX. It
         is their responsibility to be aware of the age restriction where they reside and play, and to confirm their
-        legitimacy when creating an account at CryptoSlots. We also advise parents to do the following:
+        legitimacy when creating an account at FortuneX. We also advise parents to do the following:
       </p>
       <ul className="list-disc pl-8 space-y-2">
         <li>Password protect computer, mobile, and/or tablet.</li>
@@ -82,3 +82,4 @@ function ResponsibleGamingPage() {
 }
 
 export default ResponsibleGamingPage;
+

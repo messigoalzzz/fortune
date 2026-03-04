@@ -18,7 +18,7 @@ const sections: FaqSection[] = [
         q: "Are your games provably fair?",
         a: (
           <>
-            Yes, all CryptoSlots games are{" "}
+            Yes, all FortuneX games are{" "}
             <a className="text-primary underline" href="/provably-fair-explained">
               provably fair
             </a>
@@ -29,19 +29,19 @@ const sections: FaqSection[] = [
         ),
       },
       {
-        q: "Is all my information secure on CryptoSlots?",
+        q: "Is all my information secure on FortuneX?",
         a: (
           <>
             As per our{" "}
             <a className="text-primary underline" href="/privacy-policy">
               Privacy Policy
             </a>
-            , all of your data is safe at CryptoSlots and is protected at all times by advanced security technology.
+            , all of your data is safe at FortuneX and is protected at all times by advanced security technology.
           </>
         ),
       },
       {
-        q: "Can I play for free at CryptoSlots?",
+        q: "Can I play for free at FortuneX?",
         a: "All games except for Jackpot Trigger require bets made from your cash balance and cannot be played for free. Jackpot Trigger can only be played with Jackpot Tokens.",
       },
       {
@@ -89,11 +89,11 @@ const sections: FaqSection[] = [
       },
       {
         q: "What should I do if I forget my password and/or username?",
-        a: "Please click \"Forgot password\" on the CryptoSlots log in screen to be redirected to reset your password. First enter the email linked to your CryptoSlots account, then follow the instructions in the email sent to this address.",
+        a: "Please click \"Forgot password\" on the FortuneX log in screen to be redirected to reset your password. First enter the email linked to your FortuneX account, then follow the instructions in the email sent to this address.",
       },
       {
         q: "Can I register multiple accounts?",
-        a: "CryptoSlots allows only one account per person. Additional accounts may be subject to limitations or cancelation.",
+        a: "FortuneX allows only one account per person. Additional accounts may be subject to limitations or cancelation.",
       },
       {
         q: "Is it possible to close my account for a certain period of time?",
@@ -109,15 +109,15 @@ const sections: FaqSection[] = [
         ),
       },
       {
-        q: "Can I permanently close my CryptoSlots account?",
+        q: "Can I permanently close my FortuneX account?",
         a: (
           <>
-            You can decide to close your account at any time and have all data permanently deleted from CryptoSlots by
+            You can decide to close your account at any time and have all data permanently deleted from FortuneX by
             contacting{" "}
             <a className="text-primary underline" href="/support">
               Customer Support
             </a>
-            . CryptoSlots promotes responsible gaming and recommends any player concerned about their gambling habits to
+            . FortuneX promotes responsible gaming and recommends any player concerned about their gambling habits to
             consult{" "}
             <a className="text-primary underline" href="/responsible-gaming">
               this page
@@ -133,7 +133,7 @@ const sections: FaqSection[] = [
     title: "Deposits & Withdrawals",
     items: [
       {
-        q: "What currencies and payment methods does CryptoSlots accept?",
+        q: "What currencies and payment methods does FortuneX accept?",
         a: "You can withdraw and deposit in Bitcoin (BTC), Litecoin (LTC), Ether (ETH), Monero (XMR), Tether (USDT) and USD Coin (USDC).",
       },
       {
@@ -153,7 +153,7 @@ const sections: FaqSection[] = [
       },
       {
         q: "How long will my deposit take to be credited to my account?",
-        a: "The deposited amount will show in your CryptoSlots account balance in a matter of seconds after you have initiated the transaction from your cryptocurrency wallet. Despite this, each deposit is only considered fully complete when it reaches a certain number of confirmations in the blockchain.",
+        a: "The deposited amount will show in your FortuneX account balance in a matter of seconds after you have initiated the transaction from your cryptocurrency wallet. Despite this, each deposit is only considered fully complete when it reaches a certain number of confirmations in the blockchain.",
       },
       {
         q: "What should I do if I have made a deposit and the amount has not been credited to my account?",
@@ -200,7 +200,7 @@ const sections: FaqSection[] = [
         ),
       },
       {
-        q: "Where and how do I claim bonuses at CryptoSlots?",
+        q: "Where and how do I claim bonuses at FortuneX?",
         a: "Go to the \"Bonus\" tab in the Cashier section. Remember to enter a match bonus code before making a deposit.",
       },
       {
@@ -218,12 +218,12 @@ const sections: FaqSection[] = [
     title: "Jackpot Trigger",
     items: [
       {
-        q: "Does CryptoSlots have a Jackpot?",
-        a: "CryptoSlots does have a jackpot and it is tied in with the jackpot specific slot, Jackpot Trigger. Jackpot wins on this game are worth up to $1,000,000.",
+        q: "Does FortuneX have a Jackpot?",
+        a: "FortuneX does have a jackpot and it is tied in with the jackpot specific slot, Jackpot Trigger. Jackpot wins on this game are worth up to $1,000,000.",
       },
       {
         q: "What are Jackpot Tokens and how are they acquired?",
-        a: "Jackpot Tokens are collected when playing other CryptoSlots games. One token is earned for every $100 a player accumulates in wins, across all other CryptoSlots games. Once Jackpot Tokens are collected, they never expire.",
+        a: "Jackpot Tokens are collected when playing other FortuneX games. One token is earned for every $100 a player accumulates in wins, across all other FortuneX games. Once Jackpot Tokens are collected, they never expire.",
       },
       {
         q: "What happens to wins from Jackpot Trigger?",
@@ -274,7 +274,7 @@ function FaqPage() {
     <div className="space-y-8 [&_p]:text-base [&_p]:leading-7">
       <h1 className="bg-image-clip-text text-[2.5rem] mb-[30px]">FAQ</h1>
 
-      <p className="font-bold !text-2xl leading-9">Do you have any questions about CryptoSlots? You've come to the right place for answers.</p>
+      <p className="font-bold !text-2xl leading-9">Do you have any questions about FortuneX? You've come to the right place for answers.</p>
 
       <div className="space-y-2">
         {sections.map((section) => {
@@ -317,3 +317,4 @@ function FaqPage() {
 }
 
 export default FaqPage;
+

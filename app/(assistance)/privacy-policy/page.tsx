@@ -4,7 +4,7 @@ function PrivacyPolicyPage() {
       <h1 className="bg-image-clip-text text-[2.5rem] mb-[30px]">Privacy Policy</h1>
 
       <p className="font-bold !text-2xl leading-9">
-        Protecting the security and privacy of players is at the forefront of CryptoSlots&apos; ethos.
+        Protecting the security and privacy of players is at the forefront of FortuneX&apos; ethos.
       </p>
 
       <p className="text-center font-bold">
@@ -14,26 +14,26 @@ function PrivacyPolicyPage() {
 
       <h2 className="text-[2rem] leading-none">Data Use &amp; Security</h2>
       <p>
-        CryptoSlots.com is entitled to collect, store, and process personal data provided by players upon creating an
-        account and any further data provided by player while using CryptoSlots. This data will only be used for the
+        FortuneX.com is entitled to collect, store, and process personal data provided by players upon creating an
+        account and any further data provided by player while using FortuneX. This data will only be used for the
         purposes of:
       </p>
       <p>i) proof of agreement to account,</p>
-      <p>ii) sending any relevant promotional material or - information about CryptoSlots and player&apos;s account,</p>
+      <p>ii) sending any relevant promotional material or - information about FortuneX and player&apos;s account,</p>
       <p>iii) further agreements between player and Slotland Entertainment S.A.,</p>
       <p>iv) fulfilling any legal obligations as a result of these terms,</p>
-      <p>v) protecting CryptoSlots in any judicial, administrative, or other proceedings.</p>
+      <p>v) protecting FortuneX in any judicial, administrative, or other proceedings.</p>
 
       <p>
         Collection of your data helps us to provide you top quality entertainment, personalized customer support, and to
         market and inform you of any updates, new products, or promotions.
       </p>
       <p>
-        CryptoSlots employs advanced security technology to protect and safeguard your private data at all times from
+        FortuneX employs advanced security technology to protect and safeguard your private data at all times from
         unauthorized access, usage, disclosure, and modification. Data will only ever be disclosed to:
       </p>
       <p>i) Slotland Entertainment S.A. Group companies and responsible employees,</p>
-      <p>ii) third parties providing services necessary to CryptoSlots operation and entertainment provision.</p>
+      <p>ii) third parties providing services necessary to FortuneX operation and entertainment provision.</p>
       <p>
         All employees and any involved third parties strictly adhere to our high privacy protection standards.
       </p>
@@ -42,7 +42,7 @@ function PrivacyPolicyPage() {
         Data Protection Regulation (&quot;GDPR&quot;) (specifically but not limited to Article 6(1)(b) to (f) and Article 28).
       </p>
       <p>
-        CryptoSlots utilizes cookies to track player visits for the purpose of personalizing player gaming experience.
+        FortuneX utilizes cookies to track player visits for the purpose of personalizing player gaming experience.
         This information is collected to improve overall services and not in a way which personally identifies players.
         Players can turn off cookies at any time, by following instructions on their browsers.
       </p>
@@ -70,3 +70,4 @@ function PrivacyPolicyPage() {
 }
 
 export default PrivacyPolicyPage;
+

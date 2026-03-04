@@ -6,13 +6,13 @@ function SupportPage() {
       <p>
         If you have any queries, our friendly Customer Support team is here to help night and day. Please also check
         our <a className="text-primary underline" href="/faq">FAQ</a> to find answers to any questions you might have
-        about gaming at CryptoSlots.com.
+        about gaming at FortuneX.com.
       </p>
 
       <p>
         Chat with us 24/7 on LiveChat or email us anytime at{" "}
-        <a className="text-primary underline" href="mailto:support@cryptoslots.com">
-          support@cryptoslots.com
+        <a className="text-primary underline" href="mailto:support@fortunex.com">
+          support@fortunex.com
         </a>
         .
       </p>
@@ -21,3 +21,4 @@ function SupportPage() {
 }
 
 export default SupportPage;
+
