@@ -4,12 +4,8 @@ import PersonalCenter from "@/components/PersonalCenter";
 
 export default function AccountPage() {
   return (
-    <div className="min-h-screen bg-[var(--background)]">
-      <Header />
-      <main>
+    <div className="bg-background">
         <PersonalCenter />
-      </main>
-      <Footer />
     </div>
   );
 }

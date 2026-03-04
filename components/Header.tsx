@@ -144,8 +144,8 @@ export default function Header() {
     { name: "Home", href: "/", comingSoon: false },
     { name: "Games", href: "#", comingSoon: true },
     { name: "Promotions", href: "#", comingSoon: true },
-    { name: "Provably Fair Explained", href: "#", comingSoon: true },
-    { name: "Worth Reading", href: "#", comingSoon: true },
+    { name: "Provably Fair Explained", href: "/provably-fair-explained" },
+    { name: "Worth Reading", href: "/worth-reading" },
   ];
 
   const handleComingSoon = () => {
@@ -153,7 +153,7 @@ export default function Header() {
   };
 
   return (
-    <header className="sticky top-0 z-50 w-full bg-[var(--background)] border-b border-[var(--border)]">
+    <header className="sticky top-0 z-50 w-full bg-background border-b border-[var(--border)]">
       <nav className="container-custom">
         <div className="flex flex-col gap-2 py-4 md:py-4">
           <div className="flex items-center justify-between">

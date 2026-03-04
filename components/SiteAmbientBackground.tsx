@@ -21,7 +21,7 @@ export default function SiteAmbientBackground() {
   };
 
   return (
-    <div className="pointer-events-none absolute inset-x-0 top-0 z-0 flex justify-center">
+    <div className="pointer-events-none absolute inset-x-0 top-0 z-0 flex justify-center mt-[-200px]">
       <div className="relative h-[max(1100px,100vh)] w-[max(2400px,100vw)] max-w-none md:h-[max(1600px,100vh)]">
         <Image
           src="/banner-length.jpg"

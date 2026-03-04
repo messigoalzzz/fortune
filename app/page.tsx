@@ -47,10 +47,9 @@ const featuredCards: GameCard[] = [
 
 export default function Home() {
   return (
-    <div className="relative min-h-screen overflow-x-clip bg-[var(--background)]">
+    <div className="relative overflow-x-clip bg-background">
       <SiteAmbientBackground />
-      <Header />
-      <main className="relative z-10">
+      <div className="relative z-10">
         <BannerCarousel />
         {/* <GameCategoryNav /> */}
 
@@ -63,8 +62,7 @@ export default function Home() {
         <AcceptCarousel />
 
         <About />
-      </main>
-      <Footer />
+      </div>
     </div>
   );
 }
