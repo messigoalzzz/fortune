@@ -5,7 +5,7 @@ import {
   worthReadingArticles,
   worthReadingCategoryLabels,
   WorthReadingCategory,
-  WorthReadingArticle
+  type WorthReadingArticle
 
 } from './data'
 
