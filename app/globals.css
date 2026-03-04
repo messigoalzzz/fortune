@@ -341,3 +341,11 @@ body {
     transform: scale(1.1);
   }
 }
+
+
+.bg-image-clip-text{ 
+  background-image: linear-gradient(90deg,#01afae,#3752f7,#ff00fe);
+  background-clip: text;
+  color: transparent;
+  width: fit-content;
+}
