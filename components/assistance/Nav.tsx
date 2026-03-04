@@ -1,7 +1,7 @@
 'use client';
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function AssistanceNav() {
   const router = useRouter();
@@ -54,7 +54,13 @@ function AssistanceNav() {
     },
   ];
 
-  const [activeItem, setActiveItem] = useState<string>('provably-fair-explained');
+  const [activeItem, setActiveItem] = useState<string>(
+    pathname.includes('worth-reading') ? 'worth-reading' : 'provably-fair-explained'
+  );
+
+  useEffect(() => {
+    setActiveItem(pathname.includes('worth-reading') ? 'worth-reading' : 'provably-fair-explained');
+  }, [pathname]);
 
 const handleToggle = (key: string) => {
   setActiveItem( key);
@@ -63,7 +69,6 @@ const handleToggle = (key: string) => {
 
 
 const handleSetQuery = (key: string) => {
-  console.log(key);
   const params = new URLSearchParams(searchParams.toString());
   params.set('name', key); 
   router.push(pathname + '?' + params.toString());
