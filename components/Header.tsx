@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { toast } from "sonner";
 import LoginModal from "@/components/LoginModal";
 import SignupModal from "@/components/SignupModal";
@@ -9,6 +9,7 @@ import { fetchUserInfo } from "@/lib/api";
 
 export default function Header() {
   const router = useRouter();
+  const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [loginOpen, setLoginOpen] = useState(false);
   const [signupOpen, setSignupOpen] = useState(false);
@@ -152,6 +153,12 @@ export default function Header() {
     toast("Coming soon");
   };
 
+  const isLinkActive = (href: string) => {
+    if (!href || href === "#") return false;
+    if (href === "/") return pathname === "/";
+    return pathname === href || pathname.startsWith(`${href}/`);
+  };
+
   return (
     <header className="sticky top-0 z-50 w-full bg-background border-b border-[var(--border)]">
       <nav className="container-custom">
@@ -261,7 +268,7 @@ export default function Header() {
             {/* Desktop Navigation - Bottom Row */}
             <div className="hidden lg:flex items-center space-x-8">
               {navLinks.map((link) => {
-                const isActive = link.name === "Home";
+                const isActive = isLinkActive(link.href);
                 const className = `text-base font-semibold tracking-wide whitespace-nowrap transition-colors duration-200 ${
                   isActive
                     ? "text-sky-400 hover:text-sky-300"
@@ -314,8 +321,12 @@ export default function Header() {
         {mobileMenuOpen && (
           <div className="lg:hidden py-4 space-y-3 border-t border-[var(--border)]">
             {navLinks.map((link) => {
-              const className =
-                "block px-4 py-2 text-[var(--foreground-muted)] hover:text-[var(--primary)] hover:bg-[var(--background-card)] rounded-md transition-colors duration-200";
+              const isActive = isLinkActive(link.href);
+              const className = `block px-4 py-2 rounded-md transition-colors duration-200 ${
+                isActive
+                  ? "text-sky-400 bg-[var(--background-card)]"
+                  : "text-[var(--foreground-muted)] hover:text-[var(--primary)] hover:bg-[var(--background-card)]"
+              }`;
               if (link.comingSoon) {
                 return (
                   <button
