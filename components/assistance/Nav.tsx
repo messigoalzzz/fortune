@@ -127,6 +127,9 @@ function AssistanceNav() {
   const handleSetQuery = (key: string) => {
     const params = new URLSearchParams(searchParams.toString());
     params.set('name', key);
+    if (isSmallScreen) {
+      setMobileExpanded(false);
+    }
     router.push(pathname + '?' + params.toString());
   };
 
@@ -134,6 +137,12 @@ function AssistanceNav() {
   const visibleNavItems = showOnlyActiveOnMobile
     ? navItems.filter((item) => item.key === activeItem)
     : navItems;
+  const getMobileCollapsedLabel = (item: (typeof navItems)[number]) => {
+    if (!showOnlyActiveOnMobile || !item.children || !nameQuery) {
+      return item.label;
+    }
+    return item.children.find((child) => child.key === nameQuery)?.label ?? item.label;
+  };
 
   return (
     <div className="">
@@ -154,7 +163,7 @@ function AssistanceNav() {
                     activeItem === item.key ? 'text-primary' : 'text-gray-800 hover:text-primary'
                   }`}
                 >
-                  {item.label}
+                  {getMobileCollapsedLabel(item)}
                 </button>
               ) : (
                 <a
